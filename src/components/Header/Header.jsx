@@ -1,6 +1,6 @@
 import Button from '../../common/Button/Button';
 import Logo from './components/Logo/Logo';
-import { BUTTON_TEXT_LOGOUT } from '../../constant.js';
+import { BUTTON_TEXT_LOGOUT } from '../../constants.js';
 
 import styles from './Header.module.css';
 
@@ -13,7 +13,7 @@ function Header() {
 			<div className={styles.userBlock}>
 				<h2 className={styles.user}>{USER_NAME}</h2>
 				<Button
-					buttonText={BUTTON_TEXT_LOGOUT} //##
+					buttonText={BUTTON_TEXT_LOGOUT}
 					buttonOnClick={() => console.log('click')} //##
 				/>
 			</div>
@@ -22,10 +22,3 @@ function Header() {
 }
 
 export default Header;
-
-//// GOOD
-////constants.js
-//const BUTTON_TEXT = 'Search';
-////Button.jsx
-//import {BUTTON_TEXT} from './constants.js';
-//<Button text={BUTTON_TEXT} />
