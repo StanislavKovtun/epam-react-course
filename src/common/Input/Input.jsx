@@ -3,14 +3,21 @@ import { Fragment } from 'react';
 import './Input.module.css';
 
 const Input = (props) => {
-	const { placeholderText = '', onChange, labelText = '', value, name } = props;
+	const {
+		placeholderText = '',
+		onChange,
+		labelText = '',
+		value,
+		name,
+		type,
+	} = props;
 
 	return (
 		<Fragment>
 			{labelText && <label htmlFor={name}>{labelText}</label>}
 			<input
 				id={name}
-				type='text'
+				type={type}
 				value={value}
 				placeholder={placeholderText}
 				onChange={onChange}

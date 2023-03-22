@@ -1,9 +1,8 @@
 export default function pipeDuration(totalMinutes) {
+	if (totalMinutes < 0) return '00:00';
 	let hours = Math.floor(totalMinutes / 60);
 	let minutes = totalMinutes % 60;
-	minutes = minutes === 0 ? '00' : minutes;
-	if (hours < 10) {
-		hours = '0' + hours;
-	}
+	hours = hours < 10 ? '0' + hours : hours;
+	minutes = minutes < 10 ? '0' + minutes : minutes;
 	return `${hours}:${minutes}`;
 }

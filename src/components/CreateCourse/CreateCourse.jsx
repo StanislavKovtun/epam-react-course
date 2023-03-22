@@ -17,9 +17,23 @@ const CreateCourse = () => {
 	const [newAuthor, setNewAuthor] = useState('');
 	const [duration, setDuration] = useState('');
 	const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
-	const [courseAuthorList, setCourseAuthorList] = useState([]);
+	const [selectedAuthorList, setSelectedAuthorList] = useState([]);
 
 	const navigate = useNavigate();
+
+	function addCourseAuthor(author) {
+		setSelectedAuthorList([...selectedAuthorList, author]);
+		setAuthorsList((current) =>
+			current.filter((item) => item.name !== author.name)
+		);
+	}
+
+	function deleteCourseAuthor(author) {
+		setAuthorsList([...authorsList, author]);
+		setSelectedAuthorList((current) =>
+			current.filter((item) => item.name !== author.name)
+		);
+	}
 
 	function renderAuthorsList(authorsList) {
 		const items = authorsList.map((author) => {
@@ -37,11 +51,11 @@ const CreateCourse = () => {
 		return items;
 	}
 
-	function renderCourseAuthorsList(authorsList) {
+	function renderSelectedAuthorsList(authorsList) {
 		const items = authorsList.map((author) => {
-			let { name } = author;
+			let { name, id } = author;
 			return (
-				<div className={styles.authorItem}>
+				<div key={id} className={styles.authorItem}>
 					<p>{name}</p>
 					<Button
 						buttonText='Delete author'
@@ -51,20 +65,6 @@ const CreateCourse = () => {
 			);
 		});
 		return items;
-	}
-
-	function addCourseAuthor(author) {
-		setCourseAuthorList([...courseAuthorList, author]);
-		setAuthorsList((current) =>
-			current.filter((item) => item.name !== author.name)
-		);
-	}
-
-	function deleteCourseAuthor(author) {
-		setAuthorsList([...authorsList, author]);
-		setCourseAuthorList((current) =>
-			current.filter((item) => item.name !== author.name)
-		);
 	}
 
 	function createNewAuthor(author) {
@@ -79,21 +79,8 @@ const CreateCourse = () => {
 		mockedAuthorsList.push(newAuthor);
 	}
 
-	const checked =
-		courseAuthorList.length === 0 ? (
-			<h4>Author list is empty</h4>
-		) : (
-			renderCourseAuthorsList(courseAuthorList)
-		);
-
 	function validation() {
-		if (
-			title === '' ||
-			description === '' ||
-			duration === '' ||
-			isNaN(duration) ||
-			courseAuthorList.length === 0
-		) {
+		if (!title || !description || duration <= 0 || !selectedAuthorList.length) {
 			return false;
 		} else return true;
 	}
@@ -108,12 +95,19 @@ const CreateCourse = () => {
 				description: description,
 				creationDate: dateGenerator(),
 				duration: duration,
-				authors: courseAuthorList.map((course) => course.id),
+				authors: selectedAuthorList.map((course) => course.id),
 			};
 			mockedCoursesList.push(newCourse);
 			navigate('/');
 		}
 	}
+
+	const checkedSelectedAuthorList =
+		selectedAuthorList.length === 0 ? (
+			<h4>Author list is empty</h4>
+		) : (
+			renderSelectedAuthorsList(selectedAuthorList)
+		);
 
 	return (
 		<section className={styles.createCourseWrapper}>
@@ -123,6 +117,7 @@ const CreateCourse = () => {
 						name='inputTitle'
 						labelText='Title'
 						type='text'
+						value={title}
 						placeholderText='Enter title...'
 						onChange={(e) => setTitle(e.target.value)}
 					/>
@@ -146,6 +141,7 @@ const CreateCourse = () => {
 							name='addAuthorName'
 							labelText='Author name'
 							type='text'
+							value={newAuthor}
 							placeholderText='Enter author name ...'
 							onChange={(e) => setNewAuthor(e.target.value)}
 						/>
@@ -159,7 +155,8 @@ const CreateCourse = () => {
 						<Input
 							name='addDuration'
 							labelText='Duration'
-							type='text'
+							type='number'
+							value={duration}
 							placeholderText='Enter duration in minutes ...'
 							onChange={(e) => setDuration(e.target.value)}
 						/>
@@ -173,7 +170,7 @@ const CreateCourse = () => {
 					</div>
 					<div className={styles.chosenAuthorsList}>
 						<h3>Course authors</h3>
-						{checked}
+						{checkedSelectedAuthorList}
 					</div>
 				</div>
 			</div>

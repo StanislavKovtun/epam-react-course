@@ -9,7 +9,7 @@
 .titleBlock {
     display: flex;
     justify-content: space-between;
-    align-items:flex-end;
+    align-items: flex-end;
 }
 
 .inputTitle label {
@@ -18,7 +18,7 @@
 }
 
 .inputTitle input {
-    border-color:burlywood;
+    border-color: orange;
 }
 
 .createDescriptionBlock {
@@ -61,6 +61,10 @@
 
 .rightBlock {
     width: 45%;
+}
+
+.allAuthorsList, .chosenAuthorsList {
+    width: 80%;
 }
 
 .leftBlock input {

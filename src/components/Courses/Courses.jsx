@@ -23,8 +23,7 @@ const Courses = () => {
 		if (!text) {
 			return setCoursesList(mockedCoursesList);
 		}
-
-		const filteredCourseList = coursesList.filter(
+		const filteredCourseList = mockedCoursesList.filter(
 			(course) =>
 				course.title.toLowerCase().includes(text.toLowerCase()) ||
 				course.id.toLowerCase().includes(text.toLowerCase())
