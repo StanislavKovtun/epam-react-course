@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
@@ -11,11 +11,10 @@ import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import styles from './Courses.module.css';
 
 const Courses = () => {
-	//const navigate = useNavigate(); //##
+	const navigate = useNavigate();
 
 	const createCourseButtonHandler = () => {
-		//navigate('/courses/add'); //##
-		console.log('go to createCourse');
+		navigate('/newcourse');
 	};
 
 	const [coursesList, setCoursesList] = useState(mockedCoursesList);

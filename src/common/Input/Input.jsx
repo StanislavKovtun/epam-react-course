@@ -3,18 +3,18 @@ import { Fragment } from 'react';
 import './Input.module.css';
 
 const Input = (props) => {
-	const { placeholderText = '', onChange, labelText = '', value } = props;
+	const { placeholderText = '', onChange, labelText = '', value, name } = props;
 
 	return (
 		<Fragment>
+			{labelText && <label htmlFor={name}>{labelText}</label>}
 			<input
-				id='searchBarInput'
+				id={name}
 				type='text'
 				value={value}
 				placeholder={placeholderText}
 				onChange={onChange}
 			/>
-			{labelText && <label htmlFor='searchBarInput'>{labelText}</label>}
 		</Fragment>
 	);
 };

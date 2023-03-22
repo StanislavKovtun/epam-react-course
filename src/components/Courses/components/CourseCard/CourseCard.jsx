@@ -7,7 +7,6 @@ import styles from './CourseCard.module.css';
 
 const CourseCard = (props) => {
 	const { title, description, creationDate, duration, authors } = props;
-	const durationObject = pipeDuration(duration);
 	const courseAuthors = getAuthors(authors).join(', ');
 
 	return (
@@ -23,7 +22,7 @@ const CourseCard = (props) => {
 				</p>
 				<p className={styles.duration}>
 					<b>Duration: </b>
-					{`${durationObject.hours}:${durationObject.minutes} hours`}
+					{pipeDuration(duration)}
 				</p>
 				<p className={styles.created}>
 					<strong>Created: </strong>

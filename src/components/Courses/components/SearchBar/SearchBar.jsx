@@ -24,6 +24,7 @@ const SearchBar = ({ searchMessage }) => {
 	return (
 		<div className={styles.searchBar}>
 			<Input
+				name='searchBar'
 				value={search}
 				onChange={searchTextChanged}
 				placeholderText='Enter course name...'
