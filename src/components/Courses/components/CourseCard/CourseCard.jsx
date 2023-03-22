@@ -8,8 +8,6 @@ import styles from './CourseCard.module.css';
 const CourseCard = (props) => {
 	const { title, description, creationDate, duration, authors } = props;
 	const durationObject = pipeDuration(duration);
-
-	//const creationFormated = creationDateFormater(creationDate);
 	const courseAuthors = getAuthors(authors).join(', ');
 
 	return (

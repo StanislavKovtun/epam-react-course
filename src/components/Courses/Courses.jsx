@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 //import { useNavigate } from 'react-router-dom';
 
-//import SearchBar from './components/SearchBar/SearchBar';
+import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 
@@ -11,38 +11,38 @@ import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import styles from './Courses.module.css';
 
 const Courses = () => {
-	//const navigate = useNavigate();
+	//const navigate = useNavigate(); //##
 
 	const createCourseButtonHandler = () => {
-		//navigate('/courses/add');
+		//navigate('/courses/add'); //##
+		console.log('go to createCourse');
 	};
 
-	const [courseList, setCourseList] = useState(mockedCoursesList);
+	const [coursesList, setCoursesList] = useState(mockedCoursesList);
 
-	//const searchHandler = (text) => {
-	//	const filteredCourses = mockedCoursesList.filter((course) => {
-	//		if (
-	//			course.title.toLocaleLowerCase().includes(text) ||
-	//			course.id.toLocaleLowerCase().includes(text)
-	//		) {
-	//			return course;
-	//		} else {
-	//			return undefined;
-	//		}
-	//	});
-	//	setCourseList(filteredCourses);
-	//};
+	const searchHandler = (text) => {
+		if (!text) {
+			return setCoursesList(mockedCoursesList);
+		}
+
+		const filteredCourseList = coursesList.filter(
+			(course) =>
+				course.title.toLowerCase().includes(text.toLowerCase()) ||
+				course.id.toLowerCase().includes(text.toLowerCase())
+		);
+		setCoursesList(filteredCourseList);
+	};
 
 	return (
 		<Fragment>
 			<div className={styles.panel}>
-				{/*<SearchBar search={searchHandler} />*/}
+				<SearchBar searchMessage={searchHandler} />
 				<Button
 					buttonText={BUTTON_TEXT_ADD_COURSE}
 					onClick={createCourseButtonHandler}
 				/>
 			</div>
-			{courseList.map((course) => (
+			{coursesList.map((course) => (
 				<CourseCard
 					key={course.id}
 					id={course.id}

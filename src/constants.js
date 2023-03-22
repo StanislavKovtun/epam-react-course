@@ -1,4 +1,5 @@
 const BUTTON_TEXT_LOGOUT = 'Logout';
+const BUTTON_TEXT_SEARCH = 'Search';
 const BUTTON_TEXT_ADD_COURSE = 'Add new course';
 //...
 
@@ -64,4 +65,4 @@ export const mockedAuthorsList = [
 	},
 ];
 
-export { BUTTON_TEXT_LOGOUT, BUTTON_TEXT_ADD_COURSE };
+export { BUTTON_TEXT_LOGOUT, BUTTON_TEXT_SEARCH, BUTTON_TEXT_ADD_COURSE };
