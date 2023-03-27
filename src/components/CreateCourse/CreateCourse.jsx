@@ -12,7 +12,7 @@ import dateGenerator from '../../helpers/dateGenerator';
 import styles from './CreateCourse.module.css';
 import Author from './compopents/Author/Author';
 
-const CreateCourse = () => {
+function CreateCourse() {
 	const navigate = useNavigate();
 
 	const [title, setTitle] = useState('');
@@ -139,6 +139,7 @@ const CreateCourse = () => {
 						<div>
 							{authorsList.map((author) => (
 								<Author
+									key={author.id}
 									author={author}
 									buttonText='Add author'
 									onclickHandler={addCourseAuthor}
@@ -154,6 +155,7 @@ const CreateCourse = () => {
 							<div>
 								{selectedAuthorsList.map((author) => (
 									<Author
+										key={author.id}
 										author={author}
 										buttonText='Delete author'
 										onclickHandler={deleteCourseAuthor}
@@ -166,6 +168,6 @@ const CreateCourse = () => {
 			</div>
 		</section>
 	);
-};
+}
 
 export default CreateCourse;

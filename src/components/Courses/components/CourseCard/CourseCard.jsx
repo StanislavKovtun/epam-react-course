@@ -5,7 +5,7 @@ import dateFormater from '../../../../helpers/dateFormatter';
 
 import styles from './CourseCard.module.css';
 
-const CourseCard = (props) => {
+function CourseCard(props) {
 	const { title, description, creationDate, duration, authors } = props;
 	const courseAuthors = getAuthors(authors).join(', ');
 
@@ -34,6 +34,6 @@ const CourseCard = (props) => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default CourseCard;
