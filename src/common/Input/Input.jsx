@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import './Input.module.css';
 
-const Input = (props) => {
+function Input(props) {
 	const {
 		placeholderText = '',
 		onChange,
@@ -24,6 +24,6 @@ const Input = (props) => {
 			/>
 		</Fragment>
 	);
-};
+}
 
 export default Input;

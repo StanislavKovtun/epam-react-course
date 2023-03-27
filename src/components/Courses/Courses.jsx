@@ -10,7 +10,7 @@ import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 
 import styles from './Courses.module.css';
 
-const Courses = () => {
+function Courses() {
 	const navigate = useNavigate();
 
 	const createCourseButtonHandler = () => {
@@ -49,6 +49,6 @@ const Courses = () => {
 			)}
 		</Fragment>
 	);
-};
+}
 
 export default Courses;

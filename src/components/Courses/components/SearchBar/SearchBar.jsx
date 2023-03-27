@@ -7,7 +7,7 @@ import Button from '../../../../common/Button/Button';
 
 import styles from './SearchBar.module.css';
 
-const SearchBar = ({ searchMessage }) => {
+function SearchBar({ searchMessage }) {
 	const [search, setSearch] = useState('');
 
 	const searchClicked = () => {
@@ -32,6 +32,6 @@ const SearchBar = ({ searchMessage }) => {
 			<Button onClick={searchClicked} buttonText={BUTTON_TEXT_SEARCH} />
 		</div>
 	);
-};
+}
 
 export default SearchBar;
