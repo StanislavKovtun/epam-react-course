@@ -34,17 +34,19 @@ const Courses = () => {
 					onClick={createCourseButtonHandler}
 				/>
 			</div>
-			{filteredCourseList.map((course) => (
-				<CourseCard
-					key={course.id}
-					id={course.id}
-					title={course.title}
-					duration={course.duration}
-					creationDate={course.creationDate}
-					description={course.description}
-					authors={course.authors}
-				/>
-			))}
+			{filteredCourseList.map(
+				({ id, title, duration, creationDate, description, authors }) => (
+					<CourseCard
+						key={id}
+						id={id}
+						title={title}
+						duration={duration}
+						creationDate={creationDate}
+						description={description}
+						authors={authors}
+					/>
+				)
+			)}
 		</Fragment>
 	);
 };

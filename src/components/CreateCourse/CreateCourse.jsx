@@ -10,19 +10,20 @@ import pipeDuration from '../../helpers/pipeDuration';
 import dateGenerator from '../../helpers/dateGenerator';
 
 import styles from './CreateCourse.module.css';
+import Author from './compopents/Author/Author';
 
 const CreateCourse = () => {
+	const navigate = useNavigate();
+
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const [duration, setDuration] = useState('');
 	const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
-	const [selectedAuthorList, setSelectedAuthorList] = useState([]);
-
-	const navigate = useNavigate();
+	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
 
 	function addCourseAuthor(author) {
-		setSelectedAuthorList([...selectedAuthorList, author]);
+		setSelectedAuthorsList([...selectedAuthorsList, author]);
 		setAuthorsList((current) =>
 			current.filter((item) => item.name !== author.name)
 		);
@@ -30,41 +31,9 @@ const CreateCourse = () => {
 
 	function deleteCourseAuthor(author) {
 		setAuthorsList([...authorsList, author]);
-		setSelectedAuthorList((current) =>
+		setSelectedAuthorsList((current) =>
 			current.filter((item) => item.name !== author.name)
 		);
-	}
-
-	function renderAuthorsList(authorsList) {
-		const items = authorsList.map((author) => {
-			let { name, id } = author;
-			return (
-				<div key={id} className={styles.authorItem}>
-					<p>{name}</p>
-					<Button
-						buttonText='Add author'
-						onClick={() => addCourseAuthor(author)}
-					/>
-				</div>
-			);
-		});
-		return items;
-	}
-
-	function renderSelectedAuthorsList(authorsList) {
-		const items = authorsList.map((author) => {
-			let { name, id } = author;
-			return (
-				<div key={id} className={styles.authorItem}>
-					<p>{name}</p>
-					<Button
-						buttonText='Delete author'
-						onClick={() => deleteCourseAuthor(author)}
-					/>
-				</div>
-			);
-		});
-		return items;
 	}
 
 	function createNewAuthor(author) {
@@ -79,14 +48,19 @@ const CreateCourse = () => {
 		mockedAuthorsList.push(newAuthor);
 	}
 
-	function validation() {
-		if (!title || !description || duration <= 0 || !selectedAuthorList.length) {
+	function isValid() {
+		if (
+			!title ||
+			!description ||
+			duration <= 0 ||
+			!selectedAuthorsList.length
+		) {
 			return false;
 		} else return true;
 	}
 
-	function CreateCourse() {
-		if (!validation()) {
+	function createCourseSubmitHandler() {
+		if (!isValid()) {
 			alert('Please, fill in all fields');
 		} else {
 			const newCourse = {
@@ -95,19 +69,12 @@ const CreateCourse = () => {
 				description: description,
 				creationDate: dateGenerator(),
 				duration: duration,
-				authors: selectedAuthorList.map((course) => course.id),
+				authors: selectedAuthorsList.map((course) => course.id),
 			};
 			mockedCoursesList.push(newCourse);
 			navigate('/');
 		}
 	}
-
-	const checkedSelectedAuthorList =
-		selectedAuthorList.length === 0 ? (
-			<h4>Author list is empty</h4>
-		) : (
-			renderSelectedAuthorsList(selectedAuthorList)
-		);
 
 	return (
 		<section className={styles.createCourseWrapper}>
@@ -122,7 +89,10 @@ const CreateCourse = () => {
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 				</div>
-				<Button onClick={CreateCourse} buttonText='Create Course' />
+				<Button
+					onClick={createCourseSubmitHandler}
+					buttonText='Create Course'
+				/>
 			</div>
 			<div className={styles.createDescriptionBlock}>
 				<label htmlFor='createDescr'>Description</label>
@@ -166,11 +136,31 @@ const CreateCourse = () => {
 				<div className={styles.rightBlock}>
 					<div className={styles.allAuthorsList}>
 						<h3>Authors</h3>
-						<div>{renderAuthorsList(authorsList)}</div>
+						<div>
+							{authorsList.map((author) => (
+								<Author
+									author={author}
+									buttonText='Add author'
+									onclickHandler={addCourseAuthor}
+								></Author>
+							))}
+						</div>
 					</div>
 					<div className={styles.chosenAuthorsList}>
 						<h3>Course authors</h3>
-						{checkedSelectedAuthorList}
+						{!selectedAuthorsList.length ? (
+							<h4>Author list is empty</h4>
+						) : (
+							<div>
+								{selectedAuthorsList.map((author) => (
+									<Author
+										author={author}
+										buttonText='Delete author'
+										onclickHandler={deleteCourseAuthor}
+									></Author>
+								))}
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
