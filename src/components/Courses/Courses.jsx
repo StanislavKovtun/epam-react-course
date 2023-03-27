@@ -17,30 +17,24 @@ const Courses = () => {
 		navigate('/newcourse');
 	};
 
-	const [coursesList, setCoursesList] = useState(mockedCoursesList);
+	const [search, setSearch] = useState('');
 
-	const searchHandler = (text) => {
-		if (!text) {
-			return setCoursesList(mockedCoursesList);
-		}
-		const filteredCourseList = mockedCoursesList.filter(
-			(course) =>
-				course.title.toLowerCase().includes(text.toLowerCase()) ||
-				course.id.toLowerCase().includes(text.toLowerCase())
-		);
-		setCoursesList(filteredCourseList);
-	};
+	const filteredCourseList = mockedCoursesList.filter(
+		(course) =>
+			course.title.toLowerCase().includes(search.toLowerCase()) ||
+			course.id.toLowerCase().includes(search.toLowerCase())
+	);
 
 	return (
 		<Fragment>
 			<div className={styles.panel}>
-				<SearchBar searchMessage={searchHandler} />
+				<SearchBar searchMessage={setSearch} />
 				<Button
 					buttonText={BUTTON_TEXT_ADD_COURSE}
 					onClick={createCourseButtonHandler}
 				/>
 			</div>
-			{coursesList.map((course) => (
+			{filteredCourseList.map((course) => (
 				<CourseCard
 					key={course.id}
 					id={course.id}
