@@ -1,0 +1,14 @@
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid red;
+    padding: 10px;
+}
+
+.userBlock {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
