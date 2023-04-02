@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Button from '../../../../common/Button/Button';
 import pipeDuration from '../../../../helpers/pipeDuration';
 import getAuthors from '../../../../helpers/authorsGetter';
@@ -6,7 +8,7 @@ import dateFormater from '../../../../helpers/dateFormatter';
 import styles from './CourseCard.module.css';
 
 function CourseCard(props) {
-	const { title, description, creationDate, duration, authors } = props;
+	const { id, title, description, creationDate, duration, authors } = props;
 	const courseAuthors = getAuthors(authors).join(', ');
 
 	return (
@@ -29,7 +31,9 @@ function CourseCard(props) {
 					{dateFormater(creationDate)}
 				</p>
 				<div className={styles.buttonBlock}>
-					<Button buttonText='Show course'></Button>
+					<Link to={`/courses/${id}`}>
+						<Button className='cardButton' buttonText='Show course'></Button>
+					</Link>
 				</div>
 			</div>
 		</div>
