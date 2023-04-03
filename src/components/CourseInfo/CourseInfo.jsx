@@ -11,21 +11,18 @@ import classes from './CourseInfo.module.css';
 const CourseInfo = () => {
 	const { id } = useParams();
 	const selectedCourse = mockedCoursesList.find((course) => course.id === id);
-	//console.log(id);
-	//console.log(selectedCourse);
-	//console.log(selectedCourse.creationDate);
 
 	return (
 		<div className={classes.courseInfoWrapper}>
 			<Link to='/courses'>
 				<Button buttonText='< Back to courses' />
 			</Link>
-			<h2>{selectedCourse.title}</h2>
-			<div className='courseInfo'>
-				<div className='leftBlock'>
+			<h2 className={classes.title}>{selectedCourse.title}</h2>
+			<div className={classes.courseInfo}>
+				<div className={classes.leftBlock}>
 					<p>{selectedCourse.description}</p>
 				</div>
-				<div className='rightBlock'>
+				<div className={classes.rightBlock}>
 					<p>
 						<strong>ID: </strong>
 						{selectedCourse.id}
@@ -41,22 +38,16 @@ const CourseInfo = () => {
 					<p>
 						<strong>Authors: </strong>
 					</p>
-					{/*<ul>
+					<ul>
 						{selectedCourse.authors.map((authorId) => {
-							console.log('authorId:');
-							console.log(authorId);
 							const foundAuthor = mockedAuthorsList.find(
 								(author) => author.id === authorId
 							);
-
-							console.log('mockedAuthorsList:');
-							console.log(mockedAuthorsList);
-							//console.log('selectedCourse.authors:');
-							//console.log(selectedCourse.authors);
-							console.log(foundAuthor);
-							//return foundAuthor ? <Author>{foundAuthor}</Author> : null;
+							return foundAuthor ? (
+								<Author key={foundAuthor.id} author={foundAuthor} />
+							) : null;
 						})}
-					</ul>*/}
+					</ul>
 				</div>
 			</div>
 		</div>

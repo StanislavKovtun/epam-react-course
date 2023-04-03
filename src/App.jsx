@@ -13,8 +13,6 @@ import './App.css';
 function App() {
 	const [userName, setUserName] = useState('');
 	const isUserLogged = localStorage.getItem('token') != null;
-	//console.log(localStorage.getItem('token'));
-	//console.log(isUserLogged);
 
 	useEffect(() => {
 		const tokenItem = JSON.parse(localStorage.getItem('token'));
