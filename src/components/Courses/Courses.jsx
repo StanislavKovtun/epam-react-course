@@ -14,7 +14,7 @@ function Courses() {
 	const navigate = useNavigate();
 
 	const createCourseButtonHandler = () => {
-		navigate('/newcourse');
+		navigate('/courses/add');
 	};
 
 	const [search, setSearch] = useState('');

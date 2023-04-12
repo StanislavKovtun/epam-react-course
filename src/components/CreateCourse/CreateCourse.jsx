@@ -136,7 +136,7 @@ function CreateCourse() {
 				<div className={styles.rightBlock}>
 					<div className={styles.allAuthorsList}>
 						<h3>Authors</h3>
-						<div>
+						<ul>
 							{authorsList.map((author) => (
 								<Author
 									key={author.id}
@@ -145,14 +145,14 @@ function CreateCourse() {
 									onclickHandler={addCourseAuthor}
 								></Author>
 							))}
-						</div>
+						</ul>
 					</div>
 					<div className={styles.chosenAuthorsList}>
 						<h3>Course authors</h3>
 						{!selectedAuthorsList.length ? (
 							<h4>Author list is empty</h4>
 						) : (
-							<div>
+							<ul>
 								{selectedAuthorsList.map((author) => (
 									<Author
 										key={author.id}
@@ -161,7 +161,7 @@ function CreateCourse() {
 										onclickHandler={deleteCourseAuthor}
 									></Author>
 								))}
-							</div>
+							</ul>
 						)}
 					</div>
 				</div>
