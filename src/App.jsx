@@ -26,7 +26,12 @@ function App() {
 			<div className='App'>
 				<Header userName={userName} setUserName={setUserName} />
 				<Routes>
-					<Route path='/' element={isUserLogged ? <Courses /> : <Login />} />
+					<Route
+						path='/'
+						element={
+							isUserLogged ? <Courses /> : <Login setUserName={setUserName} />
+						}
+					/>
 					<Route path='/registration' element={<Registration />} />
 					<Route path='/login' element={<Login setUserName={setUserName} />} />
 					<Route path='/courses' element={<Courses />} />

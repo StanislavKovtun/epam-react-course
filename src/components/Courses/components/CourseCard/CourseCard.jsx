@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Button from '../../../../common/Button/Button';
 import pipeDuration from '../../../../helpers/pipeDuration';
-import getAuthors from '../../../../helpers/authorsGetter';
+import useGetAuthors from '../../../../helpers/authorsGetter';
 import dateFormater from '../../../../helpers/dateFormatter';
+import { deleteCoursesAC } from '../../../../store/courses/actionCreators';
 
 import styles from './CourseCard.module.css';
 
 function CourseCard(props) {
 	const { id, title, description, creationDate, duration, authors } = props;
-	const courseAuthors = getAuthors(authors).join(', ');
+	const courseAuthors = useGetAuthors(authors).join(', ');
+	const dispatch = useDispatch();
 
 	return (
 		<div className={styles.card}>
@@ -34,6 +37,18 @@ function CourseCard(props) {
 					<Link to={`/courses/${id}`}>
 						<Button className='cardButton' buttonText='Show course'></Button>
 					</Link>
+					<div className='cardButtonUpdate'>
+						<Button className='cardButton' buttonText='Edit course'>
+							{/*//## It will be added in the next module. */}
+						</Button>
+					</div>
+					<div className='cardButtonDelete'>
+						<Button
+							className='cardButton'
+							buttonText='Delete course'
+							onClick={() => dispatch(deleteCoursesAC(id))}
+						></Button>
+					</div>
 				</div>
 			</div>
 		</div>
