@@ -1,17 +1,13 @@
 // Code with actions
 
-//## move to constants?!
+import { ADD_AUTHOR, GET_AUTHORS } from './actionTypes';
 
-export const getAuthorsAC = (author) => {
-	return {
-		type: 'GET_AUTHORS',
-		payload: author,
-	};
-};
+export const addAuthorAC = (author) => ({
+	type: ADD_AUTHOR,
+	payload: author,
+});
 
-export const createAuthorsAC = (author) => {
-	return {
-		type: 'CREATE_AUTHORS',
-		payload: author,
-	};
-};
+export const getAuthorsAC = (authors) => ({
+	type: GET_AUTHORS,
+	payload: authors,
+});

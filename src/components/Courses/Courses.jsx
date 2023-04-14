@@ -18,7 +18,7 @@ function Courses() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const coursesList = useSelector((state) => state.coursesReducer.courses); //##
+	const coursesList = useSelector((state) => state.coursesReducer); //##
 	//const authorsList = useSelector((state) => state.authorReducer.authors); //##
 	console.log(coursesList);
 
@@ -28,11 +28,12 @@ function Courses() {
 
 	const [search, setSearch] = useState('');
 
+	//## add try/catch
 	useEffect(() => {
 		if (coursesList.length === 0) {
 			getCoursesAPI().then((data) => dispatch(getCoursesAC(data.result)));
 		}
-	}, []);
+	}, [coursesList.length, dispatch]); //##
 
 	//const filteredCourseList = mockedCoursesList.filter(
 	const filteredCourseList = coursesList.filter(

@@ -7,8 +7,8 @@ import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 //import { mockedAuthorsList } from '../../constants';
 //import { mockedCoursesList } from '../../constants';
-import { createAuthorsAC } from '../../store/authors/actionCreators';
-import { createCoursesAC } from '../../store/courses/actionCreators';
+import { addAuthorAC } from '../../store/authors/actionCreators';
+import { addCourseAC } from '../../store/courses/actionCreators';
 import pipeDuration from '../../helpers/pipeDuration';
 import dateGenerator from '../../helpers/dateGenerator';
 
@@ -19,14 +19,14 @@ function CreateCourse() {
 	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
-	const authorsFromStore = useSelector((state) => state.authorReducer.authors);
+	const authorsListStore = useSelector((state) => state.authorReducer);
 
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const [duration, setDuration] = useState('');
 	//const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
-	const [authorsList, setAuthorsList] = useState(authorsFromStore);
+	const [authorsList, setAuthorsList] = useState(authorsListStore);
 	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
 
 	function addCourseAuthor(author) {
@@ -53,7 +53,7 @@ function CreateCourse() {
 		};
 		setAuthorsList([...authorsList, newAuthor]);
 		//mockedAuthorsList.push(newAuthor); //##
-		dispatch(createAuthorsAC(newAuthor));
+		dispatch(addAuthorAC(newAuthor));
 	}
 
 	function isValid() {
@@ -80,7 +80,7 @@ function CreateCourse() {
 				authors: selectedAuthorsList.map((course) => course.id),
 			};
 			//mockedCoursesList.push(newCourse);
-			dispatch(createCoursesAC(newCourse));
+			dispatch(addCourseAC(newCourse));
 			navigate('/');
 		}
 	}

@@ -12,9 +12,9 @@ import classes from './CourseInfo.module.css';
 const CourseInfo = () => {
 	const { id } = useParams();
 	//const selectedCourse = mockedCoursesList.find((course) => course.id === id);
-	const coursesList = useSelector((state) => state.coursesReducer.courses);
+	const coursesList = useSelector((state) => state.coursesReducer);
 	const selectedCourse = coursesList.find((course) => course.id === id);
-	const authorsList = useSelector((state) => state.authorReducer.authors);
+	const authorsList = useSelector((state) => state.authorReducer);
 
 	return (
 		<div className={classes.courseInfoWrapper}>

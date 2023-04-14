@@ -5,7 +5,7 @@ import Button from '../../../../common/Button/Button';
 import pipeDuration from '../../../../helpers/pipeDuration';
 import useGetAuthors from '../../../../helpers/authorsGetter';
 import dateFormater from '../../../../helpers/dateFormatter';
-import { deleteCoursesAC } from '../../../../store/courses/actionCreators';
+import { deleteCourseAC } from '../../../../store/courses/actionCreators';
 
 import styles from './CourseCard.module.css';
 
@@ -46,7 +46,7 @@ function CourseCard(props) {
 						<Button
 							className='cardButton'
 							buttonText='Delete course'
-							onClick={() => dispatch(deleteCoursesAC(id))}
+							onClick={() => dispatch(deleteCourseAC(id))}
 						></Button>
 					</div>
 				</div>

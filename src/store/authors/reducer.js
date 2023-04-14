@@ -1,25 +1,18 @@
 // Code with reducer for courses
 
-//##
-const authorsInitialState = {
-	authors: [],
-};
+import { ADD_AUTHOR, GET_AUTHORS } from './actionTypes';
 
-const authorReducer = (state = authorsInitialState, action) => {
+const authorsInitialState = [];
+
+const authorsReducer = (state = authorsInitialState, action) => {
 	switch (action.type) {
-		case 'GET_AUTHORS':
-			return {
-				...state,
-				authors: action.payload,
-			};
-		case 'CREATE_AUTHORS':
-			return {
-				...state,
-				authors: [...state.authors, action.payload],
-			};
+		case ADD_AUTHOR:
+			return [...state, action.payload];
+		case GET_AUTHORS:
+			return action.payload;
 		default:
 			return state;
 	}
 };
 
-export default authorReducer;
+export default authorsReducer;
