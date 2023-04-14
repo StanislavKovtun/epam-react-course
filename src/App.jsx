@@ -11,15 +11,17 @@ import CourseInfo from './components/CourseInfo/CourseInfo';
 import './App.css';
 
 function App() {
-	const [userName, setUserName] = useState('');
-	const isUserLogged = localStorage.getItem('token') != null;
+	const [userName, setUserName] = useState(''); //## to store
+	const token = localStorage.getItem('token');
+	// console.log('token: ', token);
 
 	useEffect(() => {
-		const tokenItem = JSON.parse(localStorage.getItem('token'));
-		if (tokenItem) {
-			setUserName(tokenItem.user.name);
+		if (token) {
+			const tokenItem = JSON.parse(localStorage.getItem('token'));
+			console.log('tokenItem: ', tokenItem);
+			tokenItem && setUserName(tokenItem.user.name);
 		}
-	}, []);
+	}, [token]);
 
 	return (
 		<BrowserRouter>
@@ -28,9 +30,7 @@ function App() {
 				<Routes>
 					<Route
 						path='/'
-						element={
-							isUserLogged ? <Courses /> : <Login setUserName={setUserName} />
-						}
+						element={token ? <Courses /> : <Login setUserName={setUserName} />}
 					/>
 					<Route path='/registration' element={<Registration />} />
 					<Route path='/login' element={<Login setUserName={setUserName} />} />
