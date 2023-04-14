@@ -2,7 +2,7 @@
     height: 30px;
     min-width: 120px;
     width: auto;
-    border-color: blueviolet;
+    border:1px solid blueviolet;
     background-color: #fff;
     border-radius: 2px;
     cursor: pointer;

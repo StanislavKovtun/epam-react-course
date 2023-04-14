@@ -25,6 +25,7 @@ function App() {
 			//dispatch(loginSuccessAC(tokenItem));
 		}
 	}, [token]);
+	}, [token]);
 
 	return (
 		<BrowserRouter>
