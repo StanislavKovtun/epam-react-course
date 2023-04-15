@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
@@ -8,23 +8,29 @@ import Registration from './components/Registration/Registration';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/CreateCourse/CreateCourse';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-//import { loginSuccessAC } from './store/user/actionCreators';
+import { loginAC } from './store/user/actionCreators';
 
 import './App.css';
 
 function App() {
 	const [userName, setUserName] = useState('');
-	//const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const token = localStorage.getItem('token');
 
 	useEffect(() => {
 		if (token) {
 			const tokenItem = JSON.parse(localStorage.getItem('token'));
+			const tokenToStore = {
+				token: tokenItem?.result,
+				name: tokenItem?.user?.name,
+				email: tokenItem?.user?.email,
+			};
 			//console.log('tokenItem: ', tokenItem);
 			tokenItem && setUserName(tokenItem.user.name);
-			//dispatch(loginSuccessAC(tokenItem));
+			dispatch(loginAC(tokenToStore));
+			//console.log(tokenItem);
 		}
-	}, [token]);
+	}, [token, dispatch]);
 
 	return (
 		<BrowserRouter>

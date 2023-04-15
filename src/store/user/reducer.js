@@ -11,7 +11,9 @@ const userInitialState = {
 
 export default function userReducer(state = userInitialState, action) {
 	switch (action.type) {
-		case actions.LOGIN_SUCCESS:
+		case actions.LOGIN:
+			console.log('userReducer actions.LOGIN');
+			console.log(action);
 			return {
 				...state,
 				isAuth: true,
@@ -19,8 +21,8 @@ export default function userReducer(state = userInitialState, action) {
 				email: action.payload.email,
 				token: action.payload.token,
 			};
-		case actions.LOGIN_FAILURE:
-			return { ...state, isAuth: false, name: '', email: '', token: '' };
+		//case actions.LOGIN_FAILURE:
+		//	return { ...state, isAuth: false, name: '', email: '', token: '' };
 		case actions.LOGOUT:
 			localStorage.clear(); //##
 			return {
