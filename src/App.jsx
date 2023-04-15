@@ -20,15 +20,13 @@ function App() {
 	useEffect(() => {
 		if (token) {
 			const tokenItem = JSON.parse(localStorage.getItem('token'));
+			tokenItem && setUserName(tokenItem.user.name);
 			const tokenToStore = {
 				token: tokenItem?.result,
 				name: tokenItem?.user?.name,
 				email: tokenItem?.user?.email,
 			};
-			//console.log('tokenItem: ', tokenItem);
-			tokenItem && setUserName(tokenItem.user.name);
 			dispatch(loginAC(tokenToStore));
-			//console.log(tokenItem);
 		}
 	}, [token, dispatch]);
 

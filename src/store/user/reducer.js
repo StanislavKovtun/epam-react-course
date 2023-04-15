@@ -12,8 +12,8 @@ const userInitialState = {
 export default function userReducer(state = userInitialState, action) {
 	switch (action.type) {
 		case actions.LOGIN:
-			console.log('userReducer actions.LOGIN');
-			console.log(action);
+			//console.log('userReducer actions.LOGIN');
+			//console.log(action);
 			return {
 				...state,
 				isAuth: true,
