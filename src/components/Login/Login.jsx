@@ -9,7 +9,8 @@ import { loginAC, logoutAC } from '../../store/user/actionCreators';
 
 import classes from './Login.module.css';
 
-const Login = ({ setUserName }) => {
+//const Login = ({ setUserName }) => {
+const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ const Login = ({ setUserName }) => {
 				//console.log(resultToken);
 				//console.log(JSON.stringify(resultToken));
 				localStorage.setItem('token', JSON.stringify(resultToken));
-				setUserName(resultToken.user.name); //##
+				//setUserName(resultToken.user.name); //##
 				const tokenToStore = {
 					token: resultToken?.result,
 					name: resultToken?.user?.name,
@@ -47,7 +48,7 @@ const Login = ({ setUserName }) => {
 				dispatch(loginAC(tokenToStore));
 				navigate('/courses');
 			} else {
-				setUserName(resultToken.user.name); //##
+				//setUserName(resultToken.user.name); //##
 				dispatch(logoutAC);
 			}
 		}
