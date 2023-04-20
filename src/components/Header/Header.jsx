@@ -6,6 +6,8 @@ import Button from '../../common/Button/Button';
 import Logo from './components/Logo/Logo';
 import { BUTTON_TEXT_LOGOUT } from '../../constants.js';
 import { logoutAC } from '../../store/user/actionCreators';
+import { getUserName } from '../../store/selectors';
+import { logoutUserAPI } from '../../services';
 
 import styles from './Header.module.css';
 
@@ -13,15 +15,18 @@ import styles from './Header.module.css';
 function Header() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const userName = useSelector((state) => state.userReducer.name);
-	//const userName = userInfo.name;
+	const userName = useSelector(getUserName);
+	const token = localStorage.getItem('token');
 
 	function onLogoutHandler() {
-		//console.log('logout');
-		localStorage.removeItem('token');
-		//setUserName('');
-		dispatch(logoutAC());
-		navigate('/login');
+		//localStorage.removeItem('token');
+		//dispatch(logoutAC());
+		//navigate('/login');
+		return async () => {
+			await logoutUserAPI(token.toString());
+			dispatch(logoutAC());
+			navigate('/login');
+		};
 	}
 
 	return (

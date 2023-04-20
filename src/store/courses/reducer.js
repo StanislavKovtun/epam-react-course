@@ -1,5 +1,3 @@
-// Code with reducer for courses
-
 import {
 	SAVE_COURSE,
 	DELETE_COURSE,

@@ -1,5 +1,3 @@
-// Code with actions
-
 import * as actions from './actionTypes';
 
 export const loginAC = ({ token, name, email }) => ({

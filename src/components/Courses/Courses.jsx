@@ -11,6 +11,8 @@ import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { getCoursesAC } from '../../store/courses/actionCreators'; //##
 //import { getAuthorsAC } from '../../store/authors/actionCreators'; //##
 import { getCoursesAPI } from '../../services'; //##
+import * as selectors from '../../store/selectors';
+import { getCurrentUserAC } from '../../store/user/thunk';
 
 import styles from './Courses.module.css';
 
@@ -18,7 +20,7 @@ function Courses() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const coursesList = useSelector((state) => state.coursesReducer); //##
+	const coursesList = useSelector(selectors.getCourses); //##
 	//const authorsList = useSelector((state) => state.authorReducer.authors); //##
 	console.log(coursesList);
 
@@ -32,6 +34,11 @@ function Courses() {
 	useEffect(() => {
 		if (coursesList.length === 0) {
 			getCoursesAPI().then((data) => dispatch(getCoursesAC(data.result)));
+		}
+		const token = localStorage.getItem('token');
+		if (token) {
+			dispatch(getCurrentUserAC(token));
+			console.log('getCurrentUserAC');
 		}
 	}, [coursesList.length, dispatch]); //##
 

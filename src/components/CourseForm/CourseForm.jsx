@@ -7,19 +7,22 @@ import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 //import { mockedAuthorsList } from '../../constants';
 //import { mockedCoursesList } from '../../constants';
-import { addAuthorAC } from '../../store/authors/actionCreators';
-import { addCourseAC } from '../../store/courses/actionCreators';
+//import { addAuthorAC } from '../../store/authors/actionCreators';
+//import { addCourseAC } from '../../store/courses/actionCreators';
+import { addAuthorAC } from '../../store/authors/thunk';
+import { addCourseAC } from '../../store/courses/thunk';
 import pipeDuration from '../../helpers/pipeDuration';
 import dateGenerator from '../../helpers/dateGenerator';
+import { getAuthors } from '../../store/selectors';
 
-import styles from './CreateCourse.module.css';
+import styles from './CourseForm.module.css';
 import Author from './compopents/Author/Author';
 
-function CreateCourse() {
+function CourseForm() {
 	const navigate = useNavigate();
-
 	const dispatch = useDispatch();
-	const authorsListStore = useSelector((state) => state.authorReducer);
+	//const authorsListStore = useSelector((state) => state.authorReducer);
+	const authorsListStore = useSelector(getAuthors);
 
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -179,4 +182,4 @@ function CreateCourse() {
 	);
 }
 
-export default CreateCourse;
+export default CourseForm;

@@ -1,6 +1,14 @@
 const BUTTON_TEXT_LOGOUT = 'Logout';
 const BUTTON_TEXT_SEARCH = 'Search';
 const BUTTON_TEXT_ADD_COURSE = 'Add new course';
+
+//##
+// ...
+// delete course
+// edit course
+// ...
+
+export const roles = { admin: 'admin', user: 'user' };
 //...
 
 export const mockedCoursesList = [

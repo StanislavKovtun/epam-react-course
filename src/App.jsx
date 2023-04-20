@@ -1,37 +1,38 @@
-//import { useEffect, useState } from 'react';
-import { useEffect } from 'react';
+//import { useState } from 'react';
+//import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+//import { useDispatch } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
+//import CreateCourse from './components/CreateCourse/CreateCourse';
+import CourseForm from './components/CourseForm/CourseForm';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-import { loginAC } from './store/user/actionCreators';
+//import { loginAC } from './store/user/actionCreators';
+import { PrivateRoute } from './components/PrivateRouter/PrivateRouter';
 
 import './App.css';
 
 function App() {
 	//const [userName, setUserName] = useState('');
-	const dispatch = useDispatch();
+	//const dispatch = useDispatch();
 	const token = localStorage.getItem('token');
-	console.log('token:', token);
 
-	useEffect(() => {
-		if (token) {
-			const tokenItem = JSON.parse(localStorage.getItem('token'));
-			//tokenItem && setUserName(tokenItem.user.name);
-			const tokenToStore = {
-				token: tokenItem?.result,
-				name: tokenItem?.user?.name,
-				email: tokenItem?.user?.email,
-			};
-			dispatch(loginAC(tokenToStore));
-			console.log('dispatch(loginAC(tokenToStore))');
-		}
-	}, [token, dispatch]);
+	//useEffect(() => {
+	//	if (token) {
+	//		const tokenItem = JSON.parse(localStorage.getItem('token'));
+	//		//tokenItem && setUserName(tokenItem.user.name);
+	//		const tokenToStore = {
+	//			token: tokenItem?.result,
+	//			name: tokenItem?.user?.name,
+	//			email: tokenItem?.user?.email,
+	//		};
+	//		dispatch(loginAC(tokenToStore));
+	//		console.log('dispatch(loginAC(tokenToStore))');
+	//	}
+	//}, [token, dispatch]);
 
 	return (
 		<BrowserRouter>
@@ -50,10 +51,17 @@ function App() {
 						path='/courses'
 						element={token ? <Courses /> : <Navigate to='/login' />}
 					/>
-					<Route
-						path='/courses/add'
-						element={token ? <CreateCourse /> : <Navigate to='/login' />}
-					/>
+					<Route element={<PrivateRoute />}>
+						<Route
+							exact
+							path='/courses/add'
+							element={token ? <CourseForm /> : <Navigate to='/login' />}
+						/>
+						<Route
+							path='/courses/update/:id'
+							element={token ? <CourseForm /> : <Navigate to='/login' />}
+						/>
+					</Route>
 					<Route
 						path='/courses/:id'
 						element={token ? <CourseInfo /> : <Navigate to='/login' />}
