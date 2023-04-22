@@ -5,7 +5,6 @@ import Button from '../../../../common/Button/Button';
 import pipeDuration from '../../../../helpers/pipeDuration';
 import useGetAuthors from '../../../../helpers/authorsGetter';
 import dateFormater from '../../../../helpers/dateFormatter';
-//import { deleteCourseAC } from '../../../../store/courses/actionCreators';
 import { deleteCourseAC } from '../../../../store/courses/thunk';
 import { getUserRole } from './../../../../store/selectors';
 import { roles } from './../../../../constants';
@@ -44,10 +43,12 @@ function CourseCard(props) {
 					{role === roles.admin ? (
 						<>
 							<div className='cardButtonUpdate'>
-								<Button
-									className='cardButton'
-									buttonText='Edit course'
-								></Button>
+								<Link to={`/courses/update/${id}`}>
+									<Button
+										className='cardButton'
+										buttonText='Edit course'
+									></Button>
+								</Link>
 							</div>
 							<div className='cardButtonDelete'>
 								<Button

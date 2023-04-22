@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
-
-//import { mockedCoursesList } from '../../constants';
 import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { getCoursesAC } from '../../store/courses/actionCreators'; //##
 //import { getAuthorsAC } from '../../store/authors/actionCreators'; //##
 import { getCoursesAPI } from '../../services'; //##
+//import { getAuthorsAPI } from '../../services';
 import * as selectors from '../../store/selectors';
 import { getCurrentUserAC } from '../../store/user/thunk';
 
@@ -20,9 +19,9 @@ function Courses() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const role = useSelector(selectors.getUserRole);
 	const coursesList = useSelector(selectors.getCourses); //##
-	//const authorsList = useSelector((state) => state.authorReducer.authors); //##
-	console.log(coursesList);
+	//console.log(coursesList);
 
 	const createCourseButtonHandler = () => {
 		navigate('/courses/add');
@@ -30,7 +29,8 @@ function Courses() {
 
 	const [search, setSearch] = useState('');
 
-	//## add try/catch
+	// v1
+
 	useEffect(() => {
 		if (coursesList.length === 0) {
 			getCoursesAPI().then((data) => dispatch(getCoursesAC(data.result)));
@@ -38,25 +38,66 @@ function Courses() {
 		const token = localStorage.getItem('token');
 		if (token) {
 			dispatch(getCurrentUserAC(token));
-			console.log('getCurrentUserAC');
 		}
-	}, [coursesList.length, dispatch]); //##
+	}, [dispatch, coursesList.length]);
 
-	//const filteredCourseList = mockedCoursesList.filter(
-	const filteredCourseList = coursesList.filter(
-		(course) =>
-			course.title.toLowerCase().includes(search.toLowerCase()) ||
-			course.id.toLowerCase().includes(search.toLowerCase())
-	);
+	// v2
+
+	/////////////////////////////////////////////////////////
+	//const [filteredCourseList, setFilteredCourseList] = useState(coursesList);
+	//const authorsList = useSelector(selectors.getAuthors); //##
+
+	//const fetchCourses = async () => {
+	//	const response = await getCoursesAPI();
+	//	return response;
+	//};
+
+	//const fetchAuthors = async () => {
+	//	const response = await getAuthorsAPI();
+	//	return response;
+	//};
+
+	//useEffect(() => {
+	//	if (coursesList.length === 0) {
+	//		fetchCourses().then((result) => dispatch(getCoursesAC(result)));
+	//	}
+	//	if (authorsList.length === 0) {
+	//		fetchAuthors().then((result) => dispatch(getAuthorsAC(result)));
+	//	}
+	//}, [authorsList.length, coursesList.length, dispatch]);
+
+	//useEffect(() => {
+	//	setFilteredCourseList(
+	//		search
+	//			? coursesList.filter(
+	//					(course) =>
+	//						course.title.toLowerCase().includes(search.toLowerCase()) ||
+	//						course.id.toLowerCase().includes(search.toLowerCase())
+	//			  )
+	//			: coursesList
+	//	);
+	//}, [search, coursesList]);
+
+	/////////////////////////////////////////////////////////
+
+	const filteredCourseList = search
+		? coursesList.filter(
+				(course) =>
+					course.title.toLowerCase().includes(search.toLowerCase()) ||
+					course.id.toLowerCase().includes(search.toLowerCase())
+		  )
+		: coursesList;
 
 	return (
 		<Fragment>
 			<div className={styles.panel}>
 				<SearchBar searchMessage={setSearch} />
-				<Button
-					buttonText={BUTTON_TEXT_ADD_COURSE}
-					onClick={createCourseButtonHandler}
-				/>
+				{role === 'admin' ? (
+					<Button
+						buttonText={BUTTON_TEXT_ADD_COURSE}
+						onClick={createCourseButtonHandler}
+					/>
+				) : null}
 			</div>
 			{filteredCourseList.map(
 				({ id, title, duration, creationDate, description, authors }) => (

@@ -2,8 +2,10 @@ import * as services from './../../services';
 import { DELETE_COURSE, SAVE_COURSE, UPDATE_COURSE } from './actionTypes';
 
 export const addCourseAC = (data) => async (dispatch) => {
+	//console.log(data);
 	try {
 		const response = await services.addCourseAPI(data);
+		console.log(response);
 		dispatch({
 			type: SAVE_COURSE,
 			payload: response,

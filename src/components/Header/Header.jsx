@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Logo from './components/Logo/Logo';
@@ -11,22 +10,17 @@ import { logoutUserAPI } from '../../services';
 
 import styles from './Header.module.css';
 
-//function Header({ userName, setUserName }) {
 function Header() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const userName = useSelector(getUserName);
 	const token = localStorage.getItem('token');
 
-	function onLogoutHandler() {
-		//localStorage.removeItem('token');
-		//dispatch(logoutAC());
-		//navigate('/login');
-		return async () => {
-			await logoutUserAPI(token.toString());
-			dispatch(logoutAC());
-			navigate('/login');
-		};
+	async function onLogoutHandler() {
+		await logoutUserAPI(token.toString());
+		dispatch(logoutAC(token));
+		localStorage.removeItem('token');
+		navigate('/login');
 	}
 
 	return (

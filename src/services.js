@@ -32,6 +32,7 @@ export async function addCourseAPI(data) {
 				Authorization: `${localStorage.getItem('token')}`,
 			},
 		});
+		console.log(response);
 		return await response.json();
 	} catch (error) {
 		console.log(error);
@@ -65,7 +66,7 @@ export async function getAuthorsAPI() {
 
 export async function addAuthorAPI(data) {
 	try {
-		let response = await fetch('http://localhost:4000/authors/add', {
+		const response = await fetch('http://localhost:4000/authors/add', {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {

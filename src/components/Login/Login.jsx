@@ -9,7 +9,6 @@ import { loginAC, logoutAC } from '../../store/user/actionCreators';
 
 import classes from './Login.module.css';
 
-//const Login = ({ setUserName }) => {
 const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -33,22 +32,20 @@ const Login = () => {
 				password: userPassword,
 			};
 
-			const resultToken = await loginUserAPI(user); //##
+			const resultLogin = await loginUserAPI(user); //##
+			console.log('resultLogin');
+			console.log(resultLogin);
 
-			if (resultToken.successful) {
-				//console.log(resultToken);
-				//console.log(JSON.stringify(resultToken));
-				localStorage.setItem('token', JSON.stringify(resultToken));
-				//setUserName(resultToken.user.name); //##
+			if (resultLogin.successful) {
+				localStorage.setItem('token', resultLogin.result);
 				const tokenToStore = {
-					token: resultToken?.result,
-					name: resultToken?.user?.name,
-					email: resultToken?.user?.email,
+					token: resultLogin?.result,
+					name: resultLogin?.user?.name,
+					email: resultLogin?.user?.email,
 				};
 				dispatch(loginAC(tokenToStore));
 				navigate('/courses');
 			} else {
-				//setUserName(resultToken.user.name); //##
 				dispatch(logoutAC);
 			}
 		}

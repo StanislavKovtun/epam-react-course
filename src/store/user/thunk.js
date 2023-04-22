@@ -6,7 +6,7 @@ export const getCurrentUserAC = (token) => async (dispatch) => {
 		const response = await services.getCurrentUserAPI(token);
 		dispatch({
 			type: actions.GET_CURRENT_USER,
-			payload: response,
+			payload: response.result,
 		});
 	} catch (error) {
 		console.error('Error getting current user:', error);

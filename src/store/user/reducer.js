@@ -19,7 +19,7 @@ export default function userReducer(state = userInitialState, action) {
 				token: action.payload.token,
 			};
 		case actions.LOGOUT:
-			localStorage.clear(); //##
+			//localStorage.clear(); //##
 			return {
 				isAuth: false,
 				name: '',
@@ -30,7 +30,7 @@ export default function userReducer(state = userInitialState, action) {
 			return {
 				...state,
 				isAuth: true,
-				name: action.payload.name,
+				name: action.payload.role === 'admin' ? 'Admin' : action.payload.name,
 				email: action.payload.email,
 				role: action.payload.role,
 			};

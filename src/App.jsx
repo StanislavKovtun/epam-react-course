@@ -1,43 +1,31 @@
-//import { useState } from 'react';
-//import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
 
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import Courses from './components/Courses/Courses';
-//import CreateCourse from './components/CreateCourse/CreateCourse';
 import CourseForm from './components/CourseForm/CourseForm';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-//import { loginAC } from './store/user/actionCreators';
 import { PrivateRoute } from './components/PrivateRouter/PrivateRouter';
+//import { getCurrentUserAC } from './store/user/thunk';
+//import { getUserIsAuth } from './store/selectors';
 
 import './App.css';
 
 function App() {
-	//const [userName, setUserName] = useState('');
 	//const dispatch = useDispatch();
 	const token = localStorage.getItem('token');
 
 	//useEffect(() => {
 	//	if (token) {
-	//		const tokenItem = JSON.parse(localStorage.getItem('token'));
-	//		//tokenItem && setUserName(tokenItem.user.name);
-	//		const tokenToStore = {
-	//			token: tokenItem?.result,
-	//			name: tokenItem?.user?.name,
-	//			email: tokenItem?.user?.email,
-	//		};
-	//		dispatch(loginAC(tokenToStore));
-	//		console.log('dispatch(loginAC(tokenToStore))');
+	//		dispatch(getCurrentUserAC(token));
 	//	}
 	//}, [token, dispatch]);
 
 	return (
 		<BrowserRouter>
 			<div className='App'>
-				{/*<Header userName={userName} setUserName={setUserName} />*/}
 				<Header />
 				<Routes>
 					<Route
@@ -45,7 +33,6 @@ function App() {
 						element={token ? <Courses /> : <Navigate to='/login' />}
 					/>
 					<Route path='/registration' element={<Registration />} />
-					{/*<Route path='/login' element={<Login setUserName={setUserName} />} />*/}
 					<Route path='/login' element={<Login />} />
 					<Route
 						path='/courses'
