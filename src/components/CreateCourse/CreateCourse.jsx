@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
-import { mockedAuthorsList } from '../../constants';
-import { mockedCoursesList } from '../../constants';
+//import { mockedAuthorsList } from '../../constants';
+//import { mockedCoursesList } from '../../constants';
+import { addAuthorAC } from '../../store/authors/actionCreators';
+import { addCourseAC } from '../../store/courses/actionCreators';
 import pipeDuration from '../../helpers/pipeDuration';
 import dateGenerator from '../../helpers/dateGenerator';
 
@@ -15,11 +18,15 @@ import Author from './compopents/Author/Author';
 function CreateCourse() {
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
+	const authorsListStore = useSelector((state) => state.authorReducer);
+
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const [duration, setDuration] = useState('');
-	const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
+	//const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
+	const [authorsList, setAuthorsList] = useState(authorsListStore);
 	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
 
 	function addCourseAuthor(author) {
@@ -45,7 +52,8 @@ function CreateCourse() {
 			name: author,
 		};
 		setAuthorsList([...authorsList, newAuthor]);
-		mockedAuthorsList.push(newAuthor);
+		//mockedAuthorsList.push(newAuthor); //##
+		dispatch(addAuthorAC(newAuthor));
 	}
 
 	function isValid() {
@@ -71,7 +79,8 @@ function CreateCourse() {
 				duration: duration,
 				authors: selectedAuthorsList.map((course) => course.id),
 			};
-			mockedCoursesList.push(newCourse);
+			//mockedCoursesList.push(newCourse);
+			dispatch(addCourseAC(newCourse));
 			navigate('/');
 		}
 	}

@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import { registerUserAPI } from '../../services';
 
 import classes from './Registration.module.css';
 
@@ -29,18 +30,7 @@ const Registration = () => {
 				email: userEmail,
 				password: userPassword,
 			};
-
-			const response = await fetch('http://localhost:4000/register', {
-				method: 'POST',
-				body: JSON.stringify(newUser),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-			console.log(newUser);
-			const result = await response.json();
-			console.log(result);
-			console.log(result.successful);
+			const result = registerUserAPI(newUser);
 			if (result.successful) {
 				navigate('/login');
 			}

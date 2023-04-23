@@ -1,18 +1,22 @@
 import { useNavigate } from 'react-router-dom';
+//import { useDispatch } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Logo from './components/Logo/Logo';
 import { BUTTON_TEXT_LOGOUT } from '../../constants.js';
+//import { logoutAC } from '../../store/user/actionCreators';
 
 import styles from './Header.module.css';
 
 function Header({ userName, setUserName }) {
 	const navigate = useNavigate();
+	//const dispatch = useDispatch();
 
 	function onLogoutHandler() {
-		console.log('logout');
+		//console.log('logout');
 		localStorage.removeItem('token');
 		setUserName('');
+		//dispatch(logoutAC);
 		navigate('/login');
 	}
 

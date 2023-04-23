@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import { loginUserAPI } from '../../services';
 
 import classes from './Login.module.css';
 
@@ -28,22 +29,20 @@ const Login = ({ setUserName }) => {
 				password: userPassword,
 			};
 
-			const response = await fetch('http://localhost:4000/login', {
-				method: 'POST',
-				body: JSON.stringify(user),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
-			const result = await response.json();
-			console.log(result);
-			console.log(result.successful);
+			//const response = await fetch('http://localhost:4000/login', {
+			//	method: 'POST',
+			//	body: JSON.stringify(user),
+			//	headers: {
+			//		'Content-Type': 'application/json',
+			//	},
+			//});
+			//const result = await response.json();
+			const result = await loginUserAPI(user); //##
+
 			if (result.successful) {
 				localStorage.setItem('token', JSON.stringify(result));
-				console.log(setUserName);
 				setUserName(result.user.name);
 				navigate('/courses');
-				console.log(result);
 			}
 		}
 	}
