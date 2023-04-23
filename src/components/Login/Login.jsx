@@ -32,9 +32,7 @@ const Login = () => {
 				password: userPassword,
 			};
 
-			const resultLogin = await loginUserAPI(user); //##
-			console.log('resultLogin');
-			console.log(resultLogin);
+			const resultLogin = await loginUserAPI(user);
 
 			if (resultLogin.successful) {
 				localStorage.setItem('token', resultLogin.result);

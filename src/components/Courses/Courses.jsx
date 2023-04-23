@@ -6,10 +6,7 @@ import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
-import { getCoursesAC } from '../../store/courses/actionCreators'; //##
-//import { getAuthorsAC } from '../../store/authors/actionCreators'; //##
-import { getCoursesAPI } from '../../services'; //##
-//import { getAuthorsAPI } from '../../services';
+import { getCoursesAC } from '../../store/courses/thunk';
 import * as selectors from '../../store/selectors';
 import { getCurrentUserAC } from '../../store/user/thunk';
 
@@ -20,8 +17,7 @@ function Courses() {
 	const dispatch = useDispatch();
 
 	const role = useSelector(selectors.getUserRole);
-	const coursesList = useSelector(selectors.getCourses); //##
-	//console.log(coursesList);
+	const coursesList = useSelector(selectors.getCourses);
 
 	const createCourseButtonHandler = () => {
 		navigate('/courses/add');
@@ -29,56 +25,16 @@ function Courses() {
 
 	const [search, setSearch] = useState('');
 
-	// v1
-
 	useEffect(() => {
 		if (coursesList.length === 0) {
-			getCoursesAPI().then((data) => dispatch(getCoursesAC(data.result)));
+			//getCoursesAPI().then((data) => dispatch(getCoursesAC(data.result)));
+			dispatch(getCoursesAC());
 		}
 		const token = localStorage.getItem('token');
 		if (token) {
 			dispatch(getCurrentUserAC(token));
 		}
 	}, [dispatch, coursesList.length]);
-
-	// v2
-
-	/////////////////////////////////////////////////////////
-	//const [filteredCourseList, setFilteredCourseList] = useState(coursesList);
-	//const authorsList = useSelector(selectors.getAuthors); //##
-
-	//const fetchCourses = async () => {
-	//	const response = await getCoursesAPI();
-	//	return response;
-	//};
-
-	//const fetchAuthors = async () => {
-	//	const response = await getAuthorsAPI();
-	//	return response;
-	//};
-
-	//useEffect(() => {
-	//	if (coursesList.length === 0) {
-	//		fetchCourses().then((result) => dispatch(getCoursesAC(result)));
-	//	}
-	//	if (authorsList.length === 0) {
-	//		fetchAuthors().then((result) => dispatch(getAuthorsAC(result)));
-	//	}
-	//}, [authorsList.length, coursesList.length, dispatch]);
-
-	//useEffect(() => {
-	//	setFilteredCourseList(
-	//		search
-	//			? coursesList.filter(
-	//					(course) =>
-	//						course.title.toLowerCase().includes(search.toLowerCase()) ||
-	//						course.id.toLowerCase().includes(search.toLowerCase())
-	//			  )
-	//			: coursesList
-	//	);
-	//}, [search, coursesList]);
-
-	/////////////////////////////////////////////////////////
 
 	const filteredCourseList = search
 		? coursesList.filter(

@@ -6,7 +6,7 @@ export const addAuthorAC = (data) => async (dispatch) => {
 		let response = await services.addAuthorAPI(data);
 		dispatch({
 			type: ADD_AUTHOR,
-			payload: response,
+			payload: response.result,
 		});
 	} catch (error) {
 		console.log(`Error adding course:  ${error}`);

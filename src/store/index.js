@@ -1,5 +1,3 @@
-// Add store creation, root reducer
-
 import {
 	combineReducers,
 	legacy_createStore,
@@ -11,8 +9,6 @@ import ReduxThunk from 'redux-thunk';
 import userReducer from './user/reducer';
 import authorReducer from './authors/reducer';
 import coursesReducer from './courses/reducer';
-
-//const middleware = [ReduxThunk];//##
 
 const rootReducer = combineReducers({
 	user: userReducer,

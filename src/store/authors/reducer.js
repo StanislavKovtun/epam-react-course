@@ -1,5 +1,3 @@
-// Code with reducer for courses
-
 import { ADD_AUTHOR, GET_AUTHORS } from './actionTypes';
 
 const authorsInitialState = [];

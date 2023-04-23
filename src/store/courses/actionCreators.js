@@ -1,14 +1,14 @@
-import {
-	//SAVE_COURSE,
-	//DELETE_COURSE,
-	//UPDATE_COURSE,
-	GET_COURSES,
-} from './actionTypes';
+//import {
+//	//SAVE_COURSE,
+//	//DELETE_COURSE,
+//	//UPDATE_COURSE,
+//	GET_COURSES,
+//} from './actionTypes';
 
-export const getCoursesAC = (courses) => ({
-	type: GET_COURSES,
-	payload: courses,
-});
+//export const getCoursesAC = (courses) => ({
+//	type: GET_COURSES,
+//	payload: courses,
+//});
 
 //export const addCourseAC = (course) => ({
 //	type: SAVE_COURSE,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid'; //##
+//import { v4 as uuidv4 } from 'uuid'; //##
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
@@ -38,10 +38,10 @@ function CourseForm() {
 				setTitle(title);
 				setDescription(description);
 				setDuration(duration);
-				setAuthorsList(
+				setSelectedAuthorsList(
 					authorsListStore.filter((author) => authors.includes(author.id))
 				);
-				setSelectedAuthorsList(
+				setAuthorsList(
 					authorsListStore.filter((author) => !authors.includes(author.id))
 				);
 			} else {
@@ -94,7 +94,7 @@ function CourseForm() {
 			alert('Please, fill in all fields');
 		} else {
 			const newCourse = {
-				id: uuidv4(),
+				//id: uuidv4(),
 				title: title,
 				description: description,
 				//creationDate: dateGenerator(),

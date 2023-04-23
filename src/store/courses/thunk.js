@@ -1,14 +1,32 @@
 import * as services from './../../services';
-import { DELETE_COURSE, SAVE_COURSE, UPDATE_COURSE } from './actionTypes';
+import {
+	GET_COURSES,
+	DELETE_COURSE,
+	SAVE_COURSE,
+	UPDATE_COURSE,
+} from './actionTypes';
+
+export const getCoursesAC = () => async (dispatch) => {
+	try {
+		const response = await services.getCoursesAPI();
+		console.log('response');
+		console.log(response);
+		dispatch({
+			type: GET_COURSES,
+			payload: response.result,
+		});
+	} catch (error) {
+		console.log(`Error getting course: ${error}`);
+	}
+};
 
 export const addCourseAC = (data) => async (dispatch) => {
-	//console.log(data);
 	try {
 		const response = await services.addCourseAPI(data);
 		console.log(response);
 		dispatch({
 			type: SAVE_COURSE,
-			payload: response,
+			payload: response.result,
 		});
 	} catch (error) {
 		console.log(`Error adding course: ${error}`);
@@ -20,7 +38,7 @@ export const updateCourseAC = (courseId, data) => async (dispatch) => {
 		const response = await services.updateCourseAPI(courseId, data);
 		dispatch({
 			type: UPDATE_COURSE,
-			payload: response,
+			payload: response.result,
 		});
 	} catch (error) {
 		console.log(`Error updating course: ${error}`);
