@@ -1,5 +1,3 @@
-// Code with reducer for user
-
 import * as actions from './actionTypes';
 
 const userInitialState = {
@@ -7,11 +5,12 @@ const userInitialState = {
 	name: '',
 	email: '',
 	token: localStorage.getItem('token') || '',
+	role: '',
 };
 
 export default function userReducer(state = userInitialState, action) {
 	switch (action.type) {
-		case actions.LOGIN_SUCCESS:
+		case actions.LOGIN:
 			return {
 				...state,
 				isAuth: true,
@@ -19,15 +18,21 @@ export default function userReducer(state = userInitialState, action) {
 				email: action.payload.email,
 				token: action.payload.token,
 			};
-		case actions.LOGIN_FAILURE:
-			return { ...state, isAuth: false, name: '', email: '', token: '' };
 		case actions.LOGOUT:
-			localStorage.clear(); //##
+			//localStorage.clear(); //##
 			return {
 				isAuth: false,
 				name: '',
 				email: '',
 				token: '',
+			};
+		case actions.GET_CURRENT_USER:
+			return {
+				...state,
+				isAuth: true,
+				name: action.payload.role === 'admin' ? 'Admin' : action.payload.name,
+				email: action.payload.email,
+				role: action.payload.role,
 			};
 		default:
 			return state;

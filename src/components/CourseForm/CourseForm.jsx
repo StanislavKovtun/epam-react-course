@@ -1,33 +1,56 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+//import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
-//import { mockedAuthorsList } from '../../constants';
-//import { mockedCoursesList } from '../../constants';
-import { addAuthorAC } from '../../store/authors/actionCreators';
-import { addCourseAC } from '../../store/courses/actionCreators';
+import Author from './compopents/Author/Author';
+import { addAuthorAC } from '../../store/authors/thunk';
+import { addCourseAC, updateCourseAC } from '../../store/courses/thunk';
 import pipeDuration from '../../helpers/pipeDuration';
 import dateGenerator from '../../helpers/dateGenerator';
+import * as selectors from '../../store/selectors';
 
-import styles from './CreateCourse.module.css';
-import Author from './compopents/Author/Author';
+import styles from './CourseForm.module.css';
 
-function CreateCourse() {
+function CourseForm() {
+	const { id } = useParams();
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const dispatch = useDispatch();
-	const authorsListStore = useSelector((state) => state.authorReducer);
+	const authorsListStore = useSelector(selectors.getAuthors);
+	const coursesListStore = useSelector(selectors.getCourses);
+
+	const [authorsList, setAuthorsList] = useState(authorsListStore);
+	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
 
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const [duration, setDuration] = useState('');
-	//const [authorsList, setAuthorsList] = useState(mockedAuthorsList);
-	const [authorsList, setAuthorsList] = useState(authorsListStore);
-	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
+
+	const createUpdateButtonName = id ? 'Update Course' : 'Create Course';
+
+	useEffect(() => {
+		if (id) {
+			const currentCourse = coursesListStore.find((course) => course.id === id);
+			if (currentCourse) {
+				const { title, description, duration, authors } = currentCourse;
+				setTitle(title);
+				setDescription(description);
+				setDuration(duration);
+				setSelectedAuthorsList(
+					authorsListStore.filter((author) => authors.includes(author.id))
+				);
+				setAuthorsList(
+					authorsListStore.filter((author) => !authors.includes(author.id))
+				);
+			} else {
+				window.alert('Invalid course ID!');
+			}
+		}
+	}, [id, coursesListStore, authorsListStore]);
 
 	function addCourseAuthor(author) {
 		setSelectedAuthorsList([...selectedAuthorsList, author]);
@@ -48,12 +71,12 @@ function CreateCourse() {
 			return;
 		}
 		const newAuthor = {
-			id: uuidv4(),
 			name: author,
 		};
-		setAuthorsList([...authorsList, newAuthor]);
-		//mockedAuthorsList.push(newAuthor); //##
+
 		dispatch(addAuthorAC(newAuthor));
+		setAuthorsList([...authorsList, newAuthor]);
+		setNewAuthor('');
 	}
 
 	function isValid() {
@@ -67,21 +90,22 @@ function CreateCourse() {
 		} else return true;
 	}
 
-	function createCourseSubmitHandler() {
+	async function createCourseSubmitHandler() {
 		if (!isValid()) {
 			alert('Please, fill in all fields');
 		} else {
 			const newCourse = {
-				id: uuidv4(),
 				title: title,
 				description: description,
-				creationDate: dateGenerator(),
-				duration: duration,
+				duration: +duration,
 				authors: selectedAuthorsList.map((course) => course.id),
 			};
-			//mockedCoursesList.push(newCourse);
-			dispatch(addCourseAC(newCourse));
-			navigate('/');
+			if (id) {
+				dispatch(updateCourseAC(id, newCourse));
+			} else {
+				dispatch(addCourseAC({ ...newCourse, creationDate: dateGenerator() }));
+			}
+			navigate('/courses');
 		}
 	}
 
@@ -100,12 +124,14 @@ function CreateCourse() {
 				</div>
 				<Button
 					onClick={createCourseSubmitHandler}
-					buttonText='Create Course'
+					buttonText={createUpdateButtonName}
 				/>
 			</div>
 			<div className={styles.createDescriptionBlock}>
 				<label htmlFor='createDescr'>Description</label>
 				<textarea
+					id='descrition'
+					value={description}
 					name='createDescr'
 					type='text'
 					placeholder='Enter description'
@@ -179,4 +205,4 @@ function CreateCourse() {
 	);
 }
 
-export default CreateCourse;
+export default CourseForm;

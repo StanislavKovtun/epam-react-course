@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { BUTTON_TEXT_SEARCH } from '../../../../constants';
-
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
 
@@ -12,13 +11,11 @@ function SearchBar({ searchMessage }) {
 
 	const searchClicked = () => {
 		searchMessage(search);
-		// console.log(search);
 	};
 
 	const searchTextChanged = (e) => {
 		setSearch(e.target.value);
 		!e.target.value && searchMessage('');
-		// console.log(search);
 	};
 
 	return (

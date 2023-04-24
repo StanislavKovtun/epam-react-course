@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import { loginUserAPI } from '../../services';
+import { loginAC, logoutAC } from '../../store/user/actionCreators';
 
 import classes from './Login.module.css';
 
-const Login = ({ setUserName }) => {
+const Login = () => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const [userEmail, setUserEmail] = useState('');
@@ -29,20 +32,19 @@ const Login = ({ setUserName }) => {
 				password: userPassword,
 			};
 
-			//const response = await fetch('http://localhost:4000/login', {
-			//	method: 'POST',
-			//	body: JSON.stringify(user),
-			//	headers: {
-			//		'Content-Type': 'application/json',
-			//	},
-			//});
-			//const result = await response.json();
-			const result = await loginUserAPI(user); //##
+			const resultLogin = await loginUserAPI(user);
 
-			if (result.successful) {
-				localStorage.setItem('token', JSON.stringify(result));
-				setUserName(result.user.name);
+			if (resultLogin.successful) {
+				localStorage.setItem('token', resultLogin.result);
+				const tokenToStore = {
+					token: resultLogin?.result,
+					name: resultLogin?.user?.name,
+					email: resultLogin?.user?.email,
+				};
+				dispatch(loginAC(tokenToStore));
 				navigate('/courses');
+			} else {
+				dispatch(logoutAC);
 			}
 		}
 	}

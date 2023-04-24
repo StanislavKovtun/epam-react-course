@@ -1,5 +1,3 @@
-// Code with action types
-
 export const SAVE_COURSE = 'SAVE_COURSE';
 export const DELETE_COURSE = 'DELETE_COURSE';
 export const UPDATE_COURSE = 'UPDATE_COURSE';

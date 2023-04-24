@@ -4,17 +4,17 @@ import { useSelector } from 'react-redux';
 import dateFormater from '../../helpers/dateFormatter';
 import pipeDuration from '../../helpers/pipeDuration';
 import Button from '../../common/Button/Button';
-import Author from '../CreateCourse/compopents/Author/Author';
-//import { mockedCoursesList, mockedAuthorsList } from '../../constants';
+import Author from '../CourseForm/compopents/Author/Author';
+import * as selectors from './../../store/selectors';
 
 import classes from './CourseInfo.module.css';
 
 const CourseInfo = () => {
 	const { id } = useParams();
-	//const selectedCourse = mockedCoursesList.find((course) => course.id === id);
-	const coursesList = useSelector((state) => state.coursesReducer);
+	const coursesList = useSelector(selectors.getCourses);
+	const authorsList = useSelector(selectors.getAuthors);
+
 	const selectedCourse = coursesList.find((course) => course.id === id);
-	const authorsList = useSelector((state) => state.authorReducer);
 
 	return (
 		<div className={classes.courseInfoWrapper}>
@@ -44,7 +44,6 @@ const CourseInfo = () => {
 					</p>
 					<ul>
 						{selectedCourse.authors.map((authorId) => {
-							//const foundAuthor = mockedAuthorsList.find(
 							const foundAuthor = authorsList.find(
 								(author) => author.id === authorId
 							);

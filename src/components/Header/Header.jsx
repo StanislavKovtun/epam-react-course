@@ -1,22 +1,26 @@
 import { useNavigate } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
 import Logo from './components/Logo/Logo';
 import { BUTTON_TEXT_LOGOUT } from '../../constants.js';
-//import { logoutAC } from '../../store/user/actionCreators';
+import { logoutAC } from '../../store/user/actionCreators';
+import { getUserName } from '../../store/selectors';
+import { logoutUserAPI } from '../../services';
 
 import styles from './Header.module.css';
 
-function Header({ userName, setUserName }) {
+function Header() {
 	const navigate = useNavigate();
-	//const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const userName = useSelector(getUserName);
 
-	function onLogoutHandler() {
-		//console.log('logout');
+	const token = localStorage.getItem('token');
+
+	async function onLogoutHandler() {
+		await logoutUserAPI(token.toString());
+		dispatch(logoutAC(token));
 		localStorage.removeItem('token');
-		setUserName('');
-		//dispatch(logoutAC);
 		navigate('/login');
 	}
 

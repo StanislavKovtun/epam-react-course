@@ -1,55 +1,38 @@
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
 
 import Header from './components/Header/Header';
-import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
+import Login from './components/Login/Login';
 import Courses from './components/Courses/Courses';
-import CreateCourse from './components/CreateCourse/CreateCourse';
+import CourseForm from './components/CourseForm/CourseForm';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-//import { loginSuccessAC } from './store/user/actionCreators';
+import { PrivateRoute } from './components/PrivateRouter/PrivateRouter';
+import { ProtectedRouter } from './components/ProtectedRouter/ProtectedRouter';
 
 import './App.css';
 
 function App() {
-	const [userName, setUserName] = useState('');
-	//const dispatch = useDispatch();
 	const token = localStorage.getItem('token');
-
-	useEffect(() => {
-		if (token) {
-			const tokenItem = JSON.parse(localStorage.getItem('token'));
-			//console.log('tokenItem: ', tokenItem);
-			tokenItem && setUserName(tokenItem.user.name);
-			//dispatch(loginSuccessAC(tokenItem));
-		}
-	}, [token]);
 
 	return (
 		<BrowserRouter>
 			<div className='App'>
-				<Header userName={userName} setUserName={setUserName} />
+				<Header />
 				<Routes>
-					<Route
-						path='/'
-						element={token ? <Courses /> : <Navigate to='/login' />}
-					/>
 					<Route path='/registration' element={<Registration />} />
-					<Route path='/login' element={<Login setUserName={setUserName} />} />
-					<Route
-						path='/courses'
-						element={token ? <Courses /> : <Navigate to='/login' />}
-					/>
-					<Route
-						path='/courses/add'
-						element={token ? <CreateCourse /> : <Navigate to='/login' />}
-					/>
-					<Route
-						path='/courses/:id'
-						element={token ? <CourseInfo /> : <Navigate to='/login' />}
-					/>
+					<Route path='/login' element={<Login />} />
 					<Route path='/*' element={<Navigate to='/' />} />
+					<Route element={<ProtectedRouter isAuth={token} />}>
+						<Route path='/' element={<Courses />} />
+						<Route path='/courses' element={<Courses />} />
+						<Route path='/courses/:id' element={<CourseInfo />} />
+					</Route>
+					<Route element={<PrivateRoute />}>
+						<Route element={<ProtectedRouter isAuth={token} />}>
+							<Route exact path='/courses/add' element={<CourseForm />} />
+							<Route path='/courses/update/:id' element={<CourseForm />} />
+						</Route>
+					</Route>
 				</Routes>
 			</div>
 		</BrowserRouter>
