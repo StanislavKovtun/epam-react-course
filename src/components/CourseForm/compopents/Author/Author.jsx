@@ -1,4 +1,5 @@
 import Button from '../../../../common/Button/Button';
+
 import styles from './Author.module.css';
 
 function Author({ author, onclickHandler, buttonText }) {

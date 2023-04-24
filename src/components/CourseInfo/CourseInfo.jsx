@@ -12,8 +12,9 @@ import classes from './CourseInfo.module.css';
 const CourseInfo = () => {
 	const { id } = useParams();
 	const coursesList = useSelector(selectors.getCourses);
-	const selectedCourse = coursesList.find((course) => course.id === id);
 	const authorsList = useSelector(selectors.getAuthors);
+
+	const selectedCourse = coursesList.find((course) => course.id === id);
 
 	return (
 		<div className={classes.courseInfoWrapper}>
