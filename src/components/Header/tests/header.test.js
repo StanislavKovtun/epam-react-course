@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Header from './../Header';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
+
+import Header from './../Header';
 import { getUserName } from './../../../store/selectors';
 
 import '@testing-library/jest-dom/extend-expect';
@@ -45,12 +46,13 @@ describe('Header', () => {
 		const name = screen.getByText(mockedState.user.name);
 		const logoutButton = screen.getByText('Logout');
 		expect(logo).toBeInTheDocument();
-		//expect(name).toBeInTheDocument();
-		//expect(logoutButton).toBeInTheDocument();
+		expect(name).toBeInTheDocument();
+		expect(logoutButton).toBeInTheDocument();
 	});
 
 	//test('should not render user name and logout button when token is absent', () => {
 	//	getUserName.mockReturnValue(mockedState.user.name);
+	//	localStorage.removeItem('token');
 	//	render(
 	//		<Provider store={mockedStore}>
 	//			<BrowserRouter>
@@ -58,9 +60,9 @@ describe('Header', () => {
 	//			</BrowserRouter>
 	//		</Provider>
 	//	);
-	//	const name = screen.queryByText(mockedState.user.name);
+	//	//const name = screen.queryByText(mockedState.user.name);
 	//	const logoutButton = screen.queryByText('Logout');
-	//	expect(name).not.toBeInTheDocument();
+	//	//expect(name).not.toBeInTheDocument();
 	//	expect(logoutButton).not.toBeInTheDocument();
 	//});
 });

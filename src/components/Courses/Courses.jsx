@@ -49,6 +49,7 @@ function Courses() {
 				<SearchBar searchMessage={setSearch} />
 				{role === 'admin' ? (
 					<Button
+						data-testid='addButton'
 						buttonText={BUTTON_TEXT_ADD_COURSE}
 						onClick={createCourseButtonHandler}
 					/>
