@@ -11,7 +11,7 @@ export default function useGetAuthors(authorsIdArray = []) {
 
 	useEffect(() => {
 		if (authorsList.length === 0) {
-			getAuthorsAPI().then((data) => dispatch(getAuthorsAC(data.result))); //##
+			getAuthorsAPI().then((data) => dispatch(getAuthorsAC(data.result)));
 		}
 	}, [authorsList.length, dispatch]);
 

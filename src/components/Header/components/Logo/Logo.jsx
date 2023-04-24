@@ -1,4 +1,5 @@
 import logo from '../../../../assets/logo.jpg';
+
 import styles from './Logo.module.css';
 
 function Logo() {

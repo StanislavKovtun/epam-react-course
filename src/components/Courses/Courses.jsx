@@ -19,15 +19,14 @@ function Courses() {
 	const role = useSelector(selectors.getUserRole);
 	const coursesList = useSelector(selectors.getCourses);
 
+	const [search, setSearch] = useState('');
+
 	const createCourseButtonHandler = () => {
 		navigate('/courses/add');
 	};
 
-	const [search, setSearch] = useState('');
-
 	useEffect(() => {
 		if (coursesList.length === 0) {
-			//getCoursesAPI().then((data) => dispatch(getCoursesAC(data.result)));
 			dispatch(getCoursesAC());
 		}
 		const token = localStorage.getItem('token');

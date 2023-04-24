@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-//import { v4 as uuidv4 } from 'uuid'; //##
+//import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
@@ -22,14 +22,16 @@ function CourseForm() {
 	const authorsListStore = useSelector(selectors.getAuthors);
 	const coursesListStore = useSelector(selectors.getCourses);
 
+	const [authorsList, setAuthorsList] = useState(authorsListStore);
+	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
+
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [newAuthor, setNewAuthor] = useState('');
 	const [duration, setDuration] = useState('');
-	const [authorsList, setAuthorsList] = useState(authorsListStore);
-	const [selectedAuthorsList, setSelectedAuthorsList] = useState([]);
 
 	const createUpdateButtonName = id ? 'Update Course' : 'Create Course';
+
 	useEffect(() => {
 		if (id) {
 			const currentCourse = coursesListStore.find((course) => course.id === id);
@@ -69,7 +71,6 @@ function CourseForm() {
 			return;
 		}
 		const newAuthor = {
-			// id: uuidv4(),
 			name: author,
 		};
 
@@ -94,10 +95,8 @@ function CourseForm() {
 			alert('Please, fill in all fields');
 		} else {
 			const newCourse = {
-				//id: uuidv4(),
 				title: title,
 				description: description,
-				//creationDate: dateGenerator(),
 				duration: +duration,
 				authors: selectedAuthorsList.map((course) => course.id),
 			};
@@ -106,8 +105,6 @@ function CourseForm() {
 			} else {
 				dispatch(addCourseAC({ ...newCourse, creationDate: dateGenerator() }));
 			}
-			//setAuthorsList([...authorsList, newAuthor]);
-			console.log({ ...newCourse, creationDate: dateGenerator() });
 			navigate('/courses');
 		}
 	}

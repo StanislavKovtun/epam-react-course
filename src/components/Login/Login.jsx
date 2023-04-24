@@ -10,8 +10,8 @@ import { loginAC, logoutAC } from '../../store/user/actionCreators';
 import classes from './Login.module.css';
 
 const Login = () => {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState('');

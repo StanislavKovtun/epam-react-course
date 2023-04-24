@@ -14,6 +14,7 @@ function Header() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const userName = useSelector(getUserName);
+
 	const token = localStorage.getItem('token');
 
 	async function onLogoutHandler() {
