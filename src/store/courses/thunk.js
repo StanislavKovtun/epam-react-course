@@ -9,8 +9,6 @@ import {
 export const getCoursesAC = () => async (dispatch) => {
 	try {
 		const response = await services.getCoursesAPI();
-		console.log('response');
-		console.log(response);
 		dispatch({
 			type: GET_COURSES,
 			payload: response.result,
@@ -23,7 +21,6 @@ export const getCoursesAC = () => async (dispatch) => {
 export const addCourseAC = (data) => async (dispatch) => {
 	try {
 		const response = await services.addCourseAPI(data);
-		console.log(response);
 		dispatch({
 			type: SAVE_COURSE,
 			payload: response.result,
