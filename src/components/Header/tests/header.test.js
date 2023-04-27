@@ -6,7 +6,8 @@ import { render, screen } from '@testing-library/react';
 import Header from './../Header';
 import { getUserName } from './../../../store/selectors';
 
-import '@testing-library/jest-dom/extend-expect';
+// import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 jest.mock('../../../store/selectors');
 
@@ -50,19 +51,19 @@ describe('Header', () => {
 		expect(logoutButton).toBeInTheDocument();
 	});
 
-	//test('should not render user name and logout button when token is absent', () => {
-	//	getUserName.mockReturnValue(mockedState.user.name);
-	//	localStorage.removeItem('token');
-	//	render(
-	//		<Provider store={mockedStore}>
-	//			<BrowserRouter>
-	//				<Header />
-	//			</BrowserRouter>
-	//		</Provider>
-	//	);
-	//	//const name = screen.queryByText(mockedState.user.name);
-	//	const logoutButton = screen.queryByText('Logout');
-	//	//expect(name).not.toBeInTheDocument();
-	//	expect(logoutButton).not.toBeInTheDocument();
-	//});
+	test('should not render user name and logout button when token is absent', () => {
+		getUserName.mockReturnValue(mockedState.user.name);
+		localStorage.removeItem('token');
+		render(
+			<Provider store={mockedStore}>
+				<BrowserRouter>
+					<Header />
+				</BrowserRouter>
+			</Provider>
+		);
+		const name = screen.queryByText(mockedState.user.name);
+		const logoutButton = screen.queryByText('Logout');
+		expect(name).not.toBeInTheDocument();
+		expect(logoutButton).not.toBeInTheDocument();
+	});
 });
