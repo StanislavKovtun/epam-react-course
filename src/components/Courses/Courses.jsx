@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,8 +7,8 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 import { BUTTON_TEXT_ADD_COURSE } from '../../constants';
 import { getCoursesAC } from '../../store/courses/thunk';
-import * as selectors from '../../store/selectors';
 import { getCurrentUserAC } from '../../store/user/thunk';
+import * as selectors from '../../store/selectors';
 
 import styles from './Courses.module.css';
 
@@ -44,7 +44,7 @@ function Courses() {
 		: coursesList;
 
 	return (
-		<Fragment>
+		<>
 			<div className={styles.panel}>
 				<SearchBar searchMessage={setSearch} />
 				{role === 'admin' ? (
@@ -55,20 +55,25 @@ function Courses() {
 					/>
 				) : null}
 			</div>
-			{filteredCourseList.map(
-				({ id, title, duration, creationDate, description, authors }) => (
-					<CourseCard
-						key={id}
-						id={id}
-						title={title}
-						duration={duration}
-						creationDate={creationDate}
-						description={description}
-						authors={authors}
-					/>
+
+			{filteredCourseList.length > 0 ? (
+				filteredCourseList.map(
+					({ id, title, duration, creationDate, description, authors }) => (
+						<CourseCard
+							key={id}
+							id={id}
+							title={title}
+							duration={duration}
+							creationDate={creationDate}
+							description={description}
+							authors={authors}
+						/>
+					)
 				)
+			) : (
+				<p data-testid='emptyContainer'>No courses found</p>
 			)}
-		</Fragment>
+		</>
 	);
 }
 

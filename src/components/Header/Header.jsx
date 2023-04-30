@@ -16,7 +16,7 @@ function Header() {
 	const userName = useSelector(getUserName);
 
 	const token = localStorage.getItem('token');
-	console.log(token);
+	//console.log(token);
 
 	async function onLogoutHandler() {
 		await logoutUserAPI(token.toString());
@@ -29,7 +29,9 @@ function Header() {
 		<div className={styles.header}>
 			<Logo />
 			<div className={styles.userBlock}>
-				<h2 className={styles.user}>{token ? userName : 'User is undefined'}</h2>
+				<h2 className={styles.user}>
+					{token ? userName : 'User is undefined'}
+				</h2>
 				{token && (
 					<Button buttonText={BUTTON_TEXT_LOGOUT} onClick={onLogoutHandler} />
 				)}

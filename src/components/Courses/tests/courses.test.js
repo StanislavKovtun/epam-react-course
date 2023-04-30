@@ -68,50 +68,52 @@ describe('Courses', () => {
 		const courseCards = screen.getAllByTestId('courseCard');
 		expect(courseCards.length).toEqual(mockedState.courses.length);
 	});
-	//it('should display Empty container if courses array length is 0', async () => {
-	//	const emptyCoursesState = {
-	//		...mockedState,
-	//		courses: [],
-	//	};
-	//	const storeWithEmptyCourses = {
-	//		getState: () => emptyCoursesState,
-	//		subscribe: jest.fn(),
-	//		dispatch: jest.fn(),
-	//	};
-	//	jest
-	//		.spyOn(services, 'courses')
-	//		.mockResolvedValue(emptyCoursesState.courses);
 
-	//	render(
-	//		<Provider store={storeWithEmptyCourses}>
-	//			<BrowserRouter>
-	//				<Courses />
-	//			</BrowserRouter>
-	//		</Provider>
-	//	);
-	//	const courses = await services.courses();
-	//	expect(courses).toEqual([]);
-	//	const emptyCards = screen.getByTestId('emptyContainer');
-	//	expect(emptyCards).toBeInTheDocument();
-	//	jest.clearAllMocks();
-	//});
-	//it('should show CourseForm after a click on a button `Add new course`', () => {
-	//	render(
-	//		<Provider store={mockedStore}>
-	//			<MemoryRouter initialEntries={[`/courses`]}>
-	//				<Routes>
-	//					<Route path='/courses' element={<Courses />} />
-	//					<Route path='/courses/add' element={<CourseForm />} />
-	//				</Routes>
-	//			</MemoryRouter>
-	//		</Provider>
-	//	);
-	//	if (mockedState.user.role === 'admin') {
-	//		const addCourseButton = screen.queryByTestId('addButton');
-	//		expect(addCourseButton).toBeInTheDocument();
-	//		fireEvent.click(addCourseButton);
-	//		const courseForm = screen.getByTestId('courseForm');
-	//		expect(courseForm).toBeInTheDocument();
-	//	}
-	//});
+	it('should display Empty container if courses array length is 0', async () => {
+		const emptyCoursesState = {
+			...mockedState,
+			courses: [],
+		};
+		const storeWithEmptyCourses = {
+			getState: () => emptyCoursesState,
+			subscribe: jest.fn(),
+			dispatch: jest.fn(),
+		};
+		jest
+			.spyOn(services, 'getCoursesAPI')
+			.mockResolvedValue(emptyCoursesState.courses);
+
+		render(
+			<Provider store={storeWithEmptyCourses}>
+				<BrowserRouter>
+					<Courses />
+				</BrowserRouter>
+			</Provider>
+		);
+		const courses = await services.getCoursesAPI();
+		expect(courses).toEqual([]);
+		const emptyCards = screen.getByTestId('emptyContainer');
+		expect(emptyCards).toBeInTheDocument();
+		jest.clearAllMocks();
+	});
+
+	it('should show CourseForm after a click on a button `Add new course`', () => {
+		render(
+			<Provider store={mockedStore}>
+				<MemoryRouter initialEntries={[`/courses`]}>
+					<Routes>
+						<Route path='/courses' element={<Courses />} />
+						<Route path='/courses/add' element={<CourseForm />} />
+					</Routes>
+				</MemoryRouter>
+			</Provider>
+		);
+		if (mockedState.user.role === 'admin') {
+			const addCourseButton = screen.getByTestId('addButton');
+			expect(addCourseButton).toBeInTheDocument();
+			fireEvent.click(addCourseButton);
+			const courseForm = screen.getByTestId('courseForm');
+			expect(courseForm).toBeInTheDocument();
+		}
+	});
 });

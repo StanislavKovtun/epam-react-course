@@ -19,16 +19,16 @@ const mockedState = {
 			creationDate: '29/03/2023',
 			duration: 120,
 			authors: [
-				//'df32994e-b23d-497c-9e4d-84e4dc02882f',
+				'df32994e-b23d-497c-9e4d-84e4dc02882f',
 				'095a1817-d45b-4ed7-9cf7-b2417bcbf748',
 			],
 		},
 	],
 	authors: [
-		//{
-		//	id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
-		//	name: 'Stanislav',
-		//},
+		{
+			id: 'df32994e-b23d-497c-9e4d-84e4dc02882f',
+			name: 'Stanislav',
+		},
 		{
 			id: '095a1817-d45b-4ed7-9cf7-b2417bcbf748',
 			name: 'Anna Kim',
@@ -71,10 +71,10 @@ describe('CourseCard', () => {
 		const description = screen.queryByText('Description');
 		expect(description).toBeInTheDocument();
 	});
-	//test('should display duration in the correct format', () => {
-	//	const duration = screen.getByText('02:00 hours');
-	//	expect(duration).toBeInTheDocument();
-	//});
+	test('should display duration in the correct format', () => {
+		const duration = screen.getByText('02:00');
+		expect(duration).toBeInTheDocument();
+	});
 	//test('should display authors list', () => {
 	//	const authors = screen.queryByText(/Anna Kim/);
 	//	expect(authors).toBeInTheDocument();
