@@ -16,7 +16,6 @@ function Header() {
 	const userName = useSelector(getUserName);
 
 	const token = localStorage.getItem('token');
-	//console.log(token);
 
 	async function onLogoutHandler() {
 		await logoutUserAPI(token.toString());

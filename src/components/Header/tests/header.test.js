@@ -14,7 +14,6 @@ jest.mock('../../../store/selectors');
 const mockedState = {
 	user: {
 		isAuth: true,
-		//name: 'Stanislav',
 		name: 'Admin',
 	},
 	courses: [],

@@ -56,7 +56,7 @@ describe('Courses', () => {
 		dispatch: jest.fn(),
 	};
 
-	it('should display amount of CourseCard equal length of courses array.', async () => {
+	test('should display amount of CourseCard equal length of courses array.', async () => {
 		render(
 			<Provider store={mockedStore}>
 				<BrowserRouter>
@@ -69,7 +69,7 @@ describe('Courses', () => {
 		expect(courseCards.length).toEqual(mockedState.courses.length);
 	});
 
-	it('should display Empty container if courses array length is 0', async () => {
+	test('should display Empty container if courses array length is 0', async () => {
 		const emptyCoursesState = {
 			...mockedState,
 			courses: [],
@@ -97,7 +97,7 @@ describe('Courses', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should show CourseForm after a click on a button `Add new course`', () => {
+	test('should show CourseForm after a click on a button `Add new course`', () => {
 		render(
 			<Provider store={mockedStore}>
 				<MemoryRouter initialEntries={[`/courses`]}>

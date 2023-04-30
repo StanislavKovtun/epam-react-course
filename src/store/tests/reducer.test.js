@@ -5,6 +5,7 @@ describe('coursesReducer', () => {
 	test('should return the initial state', () => {
 		expect(coursesReducer(undefined, { type: undefined })).toEqual([]);
 	});
+
 	test('should handle SAVE_COURSE and returns new state', () => {
 		const newCourse = {
 			id: '1',
@@ -31,6 +32,7 @@ describe('coursesReducer', () => {
 			coursesReducer(initialState, { type: SAVE_COURSE, payload: newCourse })
 		).toEqual([...initialState, newCourse]);
 	});
+
 	test('should handle GET_COURSES and returns new state', () => {
 		const courses = [
 			{
