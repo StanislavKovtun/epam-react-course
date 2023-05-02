@@ -18,7 +18,7 @@ function CourseCard(props) {
 	const role = useSelector(getUserRole);
 
 	return (
-		<div className={styles.card}>
+		<div className={styles.card} data-testid='courseCard'>
 			<div className={styles.cardLeft}>
 				<h2 className={styles.title}>{title}</h2>
 				<p className={styles.description}>{description}</p>

@@ -110,7 +110,7 @@ function CourseForm() {
 	}
 
 	return (
-		<section className={styles.createCourseWrapper}>
+		<section data-testid='courseForm' className={styles.createCourseWrapper}>
 			<div className={styles.titleBlock}>
 				<div className={styles.inputTitle}>
 					<Input

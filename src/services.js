@@ -32,7 +32,6 @@ export async function addCourseAPI(data) {
 				Authorization: `${localStorage.getItem('token')}`,
 			},
 		});
-		console.log(response);
 		return await response.json();
 	} catch (error) {
 		console.log(error);

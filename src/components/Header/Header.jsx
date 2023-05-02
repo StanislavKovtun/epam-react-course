@@ -28,8 +28,10 @@ function Header() {
 		<div className={styles.header}>
 			<Logo />
 			<div className={styles.userBlock}>
-				<h2 className={styles.user}>{userName || 'User is undefined'}</h2>
-				{userName && (
+				<h2 className={styles.user}>
+					{token ? userName : 'User is undefined'}
+				</h2>
+				{token && (
 					<Button buttonText={BUTTON_TEXT_LOGOUT} onClick={onLogoutHandler} />
 				)}
 			</div>
